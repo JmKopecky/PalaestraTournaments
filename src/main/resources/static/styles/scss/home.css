@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+.display-title {
+  color: #D138BF;
+  font-family: "MedievalSharp", cursive;
+  font-size: 60px;
+}
+
+h1 {
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+}
+
+h2 {
+  color: #fff9fd;
+  font-family: "Playfair Display", serif;
+  font-weight: 750;
+}
+
+h3 {
+  color: #ffe9f8;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+p {
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+a {
+  position: relative;
+  color: #db61cc;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  background-color: #D138BF;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  transition: width 0.5s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+button {
+  background-color: #D138BF;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFDAF3;
+  width: 200px;
+  height: 50px;
+  border-radius: 16px;
+  border-color: transparent;
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  scale: 105%;
+  background-color: #c32db1;
+}
+
+button:active {
+  scale: 110%;
+  background-color: #ae289e;
+}
+
+body {
+  background-color: #0A0A0A;
+}
+
+#home-info-container {
+  width: fit-content;
+  margin: 10% auto auto;
+}
+
+#home-buttons-container {
+  width: fit-content;
+  margin: 5% auto auto;
+}
+#home-buttons-container div {
+  width: fit-content;
+  margin: 12% auto auto;
+}
+#home-buttons-container div a {
+  text-align: center;
+}
+
+/*# sourceMappingURL=home.css.map */
