@@ -1,0 +1,98 @@
+
+//fonts
+
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+$playfair-family: "Playfair Display", serif;
+$medievalSharp-family: "MedievalSharp", cursive;
+
+
+//Colors: (Palette Idea = night meets magic, so night background with magiclike colors for prominent elements)
+
+$background: #0A0A0A;
+$primary: #D138BF;
+$secondary: #FFDAF3;
+
+
+.display-title {
+  color: $primary;
+  font-family: $medievalSharp-family;
+  font-size: 60px;
+}
+
+h1 {
+  color: lighten($secondary, 10%);
+  font-family: $playfair-family;
+  font-weight: 900;
+}
+
+h2 {
+  color: lighten($secondary, 6%);
+  font-family: $playfair-family;
+  font-weight: 750;
+}
+
+h3 {
+  color: lighten($secondary, 3%);
+  font-family: $playfair-family;
+  font-weight: 600;
+}
+
+p {
+  color: $secondary;
+  font-family: $playfair-family;
+  font-weight: 400;
+}
+
+
+a {
+  position:relative;
+  color: lighten($primary, 10%);
+  font-family: $playfair-family;
+  font-weight: 400;
+
+  text-decoration: none;
+}
+
+a::after {
+  content:'';
+  position:absolute;
+  background-color: $primary;
+  width:0%;
+  height: 3px;
+  bottom:0;
+  left:0;
+
+  transition: width 0.5s;
+}
+
+a:hover::after {
+  width:100%;
+}
+
+
+
+
+button {
+  background-color: $primary;
+  font-family: $playfair-family;
+  font-weight: 600;
+  font-size: 24px;
+  color: $secondary;
+
+  width:200px;
+  height:50px;
+  border-radius:16px;
+  border-color:transparent;
+
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  scale: 105%;
+  background-color: darken($primary, 5%);
+}
+button:active {
+  scale: 110%;
+  background-color: darken($primary, 10%);
+}

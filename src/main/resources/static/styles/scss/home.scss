@@ -1,0 +1,24 @@
+@import "constants";
+
+body  {
+  background-color: $background;
+}
+
+#home-info-container {
+  width: fit-content;
+  margin: 10% auto auto;
+}
+
+#home-buttons-container {
+  width: fit-content;
+  margin: 5% auto auto;
+  div {
+    width: fit-content;
+    margin: 12% auto auto;
+
+    a {
+      text-align: center;
+    }
+  }
+}
+
