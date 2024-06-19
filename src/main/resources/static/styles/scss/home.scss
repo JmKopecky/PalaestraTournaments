@@ -2,11 +2,12 @@
 
 body  {
   background-color: $background;
+  height:100%;
 }
 
 #home-info-container {
   width: fit-content;
-  margin: 10% auto auto;
+  margin: 15% auto auto;
 }
 
 #home-buttons-container {

@@ -75,26 +75,4 @@ button:active {
   background-color: #ae289e;
 }
 
-body {
-  background-color: #0A0A0A;
-  height: 100%;
-}
-
-#home-info-container {
-  width: fit-content;
-  margin: 15% auto auto;
-}
-
-#home-buttons-container {
-  width: fit-content;
-  margin: 5% auto auto;
-}
-#home-buttons-container div {
-  width: fit-content;
-  margin: 12% auto auto;
-}
-#home-buttons-container div a {
-  text-align: center;
-}
-
-/*# sourceMappingURL=home.css.map */
+/*# sourceMappingURL=connectclient.css.map */
