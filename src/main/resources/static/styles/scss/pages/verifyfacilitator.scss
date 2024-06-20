@@ -1,0 +1,54 @@
+@import '../constants';
+
+
+body {
+  position: relative;
+  height: 90vh;
+}
+
+
+#ip-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+#verifykey-container {
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  h1 {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  form {
+    position: relative;
+    width: 50%;
+    margin: auto;
+
+    #verif_name_input {
+      width: 100%;
+      margin-top:2%;
+    }
+
+    #verif_key_input {
+      width: 100%;
+      margin-top:2%;
+    }
+
+    #verif_button_submit {
+      margin-left:50%;
+      margin-top:10%;
+      transform: translateX(-50%);
+    }
+  }
+}

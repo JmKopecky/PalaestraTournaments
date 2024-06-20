@@ -1,0 +1,66 @@
+@import "../constants";
+
+
+#tournament-setup-title {
+  width: 100%;
+  height: 5vh;
+  margin-top: 0.5%;
+  margin-bottom: 1.5%;
+}
+
+
+#competitor-container {
+  width: 45%;
+  height: 80vh;
+  background-color: lighten($background, 2%);
+
+
+  #competitor-topbar {
+    background-color: lighten($background, 4%);
+    width: 100%;
+    height: 8%;
+    position: relative;
+
+    #competitor-title {
+      position: absolute;
+      left: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 65%;
+      max-height: 100%;
+      margin:0;
+      font-size: 20px;
+    }
+
+    #add-competitor-button {
+      position:absolute;
+      right: 2px;
+      top: 0;
+      height: 100%;
+      width: fit-content;
+      background: none;
+
+      img {
+        height: 100%;
+        width: fit-content;
+      }
+    }
+
+    #competitor-count {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 15%;
+      height: fit-content;
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+
+
+  #competitor-list-container {
+    width: 100%;
+    height: 92%;
+  }
+}
+

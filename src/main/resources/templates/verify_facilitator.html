@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Verify Facilitator</title>
-    <link rel="stylesheet" href="/styles/scss/verifyfacilitator.css">
+    <link rel="stylesheet" href="/styles/scss/pages/verifyfacilitator.css">
 </head>
 <body>
 <div id="ip-container">
@@ -11,14 +11,14 @@
 </div>
 <div id="verifykey-container">
     <h1>Verify Facilitator Key</h1>
-    <form action="#" th:action="@{/verifyfacilitator}" th:object="${keyFormData}" method="post">
+    <form action="#" th:action="@{/verifyfacilitator}" th:object="${keyFormData}" method="post" autocomplete="off">
         <label for="verif_name_input">Name: </label>
         <input type="text" id="verif_name_input" th:field="*{name}">
 
         <label for="verif_key_input">Key: </label>
         <input type="text" id="verif_key_input" th:field="*{submittedKey}">
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" id="verif_button_submit">
     </form>
 </div>
 </body>

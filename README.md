@@ -12,7 +12,7 @@
 * Send the questions to the clients depending on how the test is configured by competition facilitator
 * Clients take the test, competition facilitator monitors
 * Once both have finished/time limit, score is computed automagically and a winner is determined
-* Rince and repeat until all matches in the tournament are done
+* Rinse and repeat until all matches in the tournament are done
 
 ## Workflow
 
