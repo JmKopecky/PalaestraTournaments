@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+body {
+  background-color: #0A0A0A;
+  height: 100%;
+}
+
+.display-title {
+  color: #D138BF;
+  font-family: "MedievalSharp", cursive;
+  font-size: 60px;
+}
+
+h1 {
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+}
+
+h2 {
+  color: #fff9fd;
+  font-family: "Playfair Display", serif;
+  font-weight: 750;
+}
+
+h3 {
+  color: #ffe9f8;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+p {
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+a {
+  position: relative;
+  color: #db61cc;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  background-color: #D138BF;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  transition: width 0.5s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+button {
+  background-color: #D138BF;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFDAF3;
+  width: 200px;
+  height: 50px;
+  border-radius: 16px;
+  border-color: transparent;
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  scale: 105%;
+  background-color: #c32db1;
+}
+
+button:active {
+  scale: 110%;
+  background-color: #ae289e;
+}
+
+label {
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+input[type=text],
+input[type=text]:-webkit-autofill,
+input[type=text]:-webkit-autofill:hover,
+input[type=text]:-webkit-autofill:focus,
+input[type=text]:-webkit-autofill:active {
+  background-color: black;
+  border: none;
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+input[type=text]:focus {
+  outline-color: #D138BF;
+}
+
+input[type=submit] {
+  background-color: #D138BF;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFDAF3;
+  width: 200px;
+  height: 50px;
+  border-radius: 16px;
+  border-color: transparent;
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+input[type=submit]:hover {
+  scale: 105%;
+  transform: translate(-2.5%, -2.5%);
+  background-color: #c32db1;
+}
+
+input[type=submit]:active {
+  scale: 110%;
+  transform: translate(-5%, -5%);
+  background-color: #ae289e;
+}
+
+body {
+  position: relative;
+  height: 90vh;
+}
+
+#ip-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#verifykey-container {
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#verifykey-container h1 {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+#verifykey-container form {
+  position: relative;
+  width: 50%;
+  margin: auto;
+}
+#verifykey-container form #verif_name_input {
+  width: 100%;
+  margin-top: 2%;
+}
+#verifykey-container form #verif_key_input {
+  width: 100%;
+  margin-top: 2%;
+}
+#verifykey-container form #verif_button_submit {
+  margin-left: 50%;
+  margin-top: 10%;
+  transform: translateX(-50%);
+}
+
+/*# sourceMappingURL=verifyfacilitator.css.map */

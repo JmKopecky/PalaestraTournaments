@@ -1,9 +1,4 @@
-@import "constants";
-
-body  {
-  background-color: $background;
-  height:100%;
-}
+@import "../constants";
 
 #home-info-container {
   width: fit-content;

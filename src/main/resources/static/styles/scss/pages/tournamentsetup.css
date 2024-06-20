@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+body {
+  background-color: #0A0A0A;
+  height: 100%;
+}
+
+.display-title {
+  color: #D138BF;
+  font-family: "MedievalSharp", cursive;
+  font-size: 60px;
+}
+
+h1 {
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+}
+
+h2 {
+  color: #fff9fd;
+  font-family: "Playfair Display", serif;
+  font-weight: 750;
+}
+
+h3 {
+  color: #ffe9f8;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+p {
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+a {
+  position: relative;
+  color: #db61cc;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  background-color: #D138BF;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  transition: width 0.5s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+button {
+  background-color: #D138BF;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFDAF3;
+  width: 200px;
+  height: 50px;
+  border-radius: 16px;
+  border-color: transparent;
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  scale: 105%;
+  background-color: #c32db1;
+}
+
+button:active {
+  scale: 110%;
+  background-color: #ae289e;
+}
+
+label {
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+input[type=text],
+input[type=text]:-webkit-autofill,
+input[type=text]:-webkit-autofill:hover,
+input[type=text]:-webkit-autofill:focus,
+input[type=text]:-webkit-autofill:active {
+  background-color: black;
+  border: none;
+  color: #FFDAF3;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+input[type=text]:focus {
+  outline-color: #D138BF;
+}
+
+input[type=submit] {
+  background-color: #D138BF;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFDAF3;
+  width: 200px;
+  height: 50px;
+  border-radius: 16px;
+  border-color: transparent;
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+input[type=submit]:hover {
+  scale: 105%;
+  transform: translate(-2.5%, -2.5%);
+  background-color: #c32db1;
+}
+
+input[type=submit]:active {
+  scale: 110%;
+  transform: translate(-5%, -5%);
+  background-color: #ae289e;
+}
+
+#tournament-setup-title {
+  width: 100%;
+  height: 5vh;
+  margin-top: 0.5%;
+  margin-bottom: 1.5%;
+}
+
+#competitor-container {
+  width: 45%;
+  height: 80vh;
+  background-color: #0f0f0f;
+}
+#competitor-container #competitor-topbar {
+  background-color: #141414;
+  width: 100%;
+  height: 8%;
+  position: relative;
+}
+#competitor-container #competitor-topbar #competitor-title {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 65%;
+  max-height: 100%;
+  margin: 0;
+  font-size: 20px;
+}
+#competitor-container #competitor-topbar #add-competitor-button {
+  position: absolute;
+  right: 2px;
+  top: 0;
+  height: 100%;
+  width: fit-content;
+  background: none;
+}
+#competitor-container #competitor-topbar #add-competitor-button img {
+  height: 100%;
+  width: fit-content;
+}
+#competitor-container #competitor-topbar #competitor-count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15%;
+  height: fit-content;
+  margin: 0;
+  font-size: 20px;
+}
+#competitor-container #competitor-list-container {
+  width: 100%;
+  height: 92%;
+}
+
+/*# sourceMappingURL=tournamentsetup.css.map */

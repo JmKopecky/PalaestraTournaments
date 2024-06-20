@@ -14,6 +14,13 @@ $primary: #D138BF;
 $secondary: #FFDAF3;
 
 
+body  {
+  background-color: $background;
+  height:100%;
+}
+
+
+
 .display-title {
   color: $primary;
   font-family: $medievalSharp-family;
@@ -96,3 +103,55 @@ button:active {
   scale: 110%;
   background-color: darken($primary, 10%);
 }
+
+
+
+
+label {
+  color: $secondary;
+  font-family: $playfair-family;
+  font-weight: 400;
+}
+
+input[type=text],
+input[type=text]:-webkit-autofill,
+input[type=text]:-webkit-autofill:hover,
+input[type=text]:-webkit-autofill:focus,
+input[type=text]:-webkit-autofill:active {
+  background-color: darken($background, 5%);
+  border: none;
+  color: $secondary;
+  font-family: $playfair-family;
+  font-weight: 400;
+}
+
+input[type=text]:focus {
+  outline-color: $primary;
+}
+
+input[type=submit] {
+  background-color: $primary;
+  font-family: $playfair-family;
+  font-weight: 600;
+  font-size: 24px;
+  color: $secondary;
+
+  width:200px;
+  height:50px;
+  border-radius:16px;
+  border-color:transparent;
+
+  transition: scale 0.5s, translate 0.5s, background-color 0.5s, color 0.5s;
+}
+
+input[type=submit]:hover {
+  scale: 105%;
+  transform: translate(-2.5%, -2.5%);
+  background-color: darken($primary, 5%);
+}
+input[type=submit]:active {
+  scale: 110%;
+  transform: translate(-5%, -5%);
+  background-color: darken($primary, 10%);
+}
+
