@@ -8,14 +8,34 @@
 </head>
 <body>
 <h1 id="tournament-setup-title">Tournament Setup</h1>
-<div id="competitor-container">
-    <div id="competitor-topbar">
-        <h3 id="competitor-title">Configure Competitors</h3>
-        <button id="add-competitor-button"><img src="/images/plus_icon.png" alt="Add competitor button image"></button>
-        <h2 id="competitor-count">Count: 0</h2>
-    </div>
-    <div id="competitor-list-container">
+<div id="section-container">
+    <div id="competitor-container">
+        <div id="competitor-topbar">
+            <h3 id="competitor-title">Configure Competitors</h3>
+            <button id="add-competitor-button"><img src="/images/plus_icon.png" alt="Add competitor button image"></button>
+            <h2 id="competitor-count">Count: 0</h2>
+        </div>
+        <div id="competitor-list-container">
 
+        </div>
+    </div>
+    <div id="options-container">
+        <form action="#" th:action="@{/tournamentsetup}" th:object="${tournamentSettingsFormData}" method="post" autocomplete="off">
+            <label for="select-multiple-choice">Multiple choice enabled: </label>
+            <input type="checkbox" id="select-multiple-choice" th:field="*{multipleChoice}">
+            <label for="select-question-locking">Lock Questions after anyone has answered successfully: </label>
+            <input type="checkbox" id="select-question-locking" th:field="*{questionLocking}">
+            <label for="select-points-per-correct">Points per correct answer: </label>
+            <input type="number" id="select-points-per-correct" th:field="*{pointsPerCorrect}">
+            <label for="select-points-per-wrong">Points per wrong answer: </label>
+            <input type="number" id="select-points-per-wrong" th:field="*{pointsPerWrong}">
+            <label for="select-points-per-skipped">Points per skipped answer: </label>
+            <input type="number" id="select-points-per-skipped" th:field="*{pointsPerSkipped}">
+            <label for="select-points-scale">Point scale after others successfully answer: </label>
+            <input type="number" id="select-points-scale" th:field="*{pointScale}" step="0.001">
+
+            <input type="submit" id="tournament-settings-submit" value="Submit">
+        </form>
     </div>
 </div>
 </body>

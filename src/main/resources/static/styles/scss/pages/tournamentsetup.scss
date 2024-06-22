@@ -1,6 +1,12 @@
 @import "../constants";
 
 
+
+#section-container {
+  position: relative;
+}
+
+
 #tournament-setup-title {
   width: 100%;
   height: 5vh;
@@ -64,3 +70,38 @@
   }
 }
 
+
+#options-container {
+  width: 45%;
+  height: 80vh;
+  background-color: lighten($background, 2%);
+  position: absolute;
+  right: 0;
+  top: 0;
+
+
+  form {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+
+    input[type=number], input[type=checkbox] {
+      width: 100%;
+      margin-top: 2%;
+    }
+
+    label {
+      width: 100%;
+      margin: auto;
+      text-align: center;
+    }
+
+    input[type=submit] {
+      width: fit-content;
+      margin-top: 5%;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
