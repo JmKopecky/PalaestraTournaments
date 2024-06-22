@@ -117,7 +117,12 @@ input[type=text],
 input[type=text]:-webkit-autofill,
 input[type=text]:-webkit-autofill:hover,
 input[type=text]:-webkit-autofill:focus,
-input[type=text]:-webkit-autofill:active {
+input[type=text]:-webkit-autofill:active,
+input[type=number],
+input[type=number]:-webkit-autofill,
+input[type=number]:-webkit-autofill:hover,
+input[type=number]:-webkit-autofill:focus,
+input[type=number]:-webkit-autofill:active {
   background-color: darken($background, 5%);
   border: none;
   color: $secondary;
@@ -125,7 +130,7 @@ input[type=text]:-webkit-autofill:active {
   font-weight: 400;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=number]:focus {
   outline-color: $primary;
 }
 
@@ -146,12 +151,10 @@ input[type=submit] {
 
 input[type=submit]:hover {
   scale: 105%;
-  transform: translate(-2.5%, -2.5%);
   background-color: darken($primary, 5%);
 }
 input[type=submit]:active {
   scale: 110%;
-  transform: translate(-5%, -5%);
   background-color: darken($primary, 10%);
 }
 

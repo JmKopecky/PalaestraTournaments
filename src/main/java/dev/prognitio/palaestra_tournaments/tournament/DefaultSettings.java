@@ -2,7 +2,6 @@ package dev.prognitio.palaestra_tournaments.tournament;
 
 public class DefaultSettings {
 
-
     //question config
     public boolean multipleChoice; //Whether to allow multiple choice questions
     public boolean questionLocking; //Whether one competitor completing a question blocks other competitors from completing it
