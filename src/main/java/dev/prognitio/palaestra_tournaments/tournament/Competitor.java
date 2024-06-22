@@ -5,7 +5,6 @@ public class Competitor {
     public String name;
 
     public Competitor(String name) {
-
         this.name = name;
     }
 }
