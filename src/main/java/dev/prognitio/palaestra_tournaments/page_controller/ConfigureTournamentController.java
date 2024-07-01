@@ -11,6 +11,7 @@ import dev.prognitio.palaestra_tournaments.PalaestraTournamentsApplication;
 import dev.prognitio.palaestra_tournaments.formdata.TournamentSetupFormData;
 import dev.prognitio.palaestra_tournaments.tournament.Competitor;
 import dev.prognitio.palaestra_tournaments.tournament.DefaultSettings;
+import dev.prognitio.palaestra_tournaments.tournament.MatchComposer;
 import dev.prognitio.palaestra_tournaments.tournament.Tournament;
 import netscape.javascript.JSObject;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,8 @@ public class ConfigureTournamentController {
         int defaultPointsPerWrong;
         int defaultPointsPerSkipped;
         double defaultPointScale;
+        String tournamentType;
+        int matchesCount;
         ArrayList<Competitor> competitors = new ArrayList<>();
 
         try {
@@ -54,6 +57,13 @@ public class ConfigureTournamentController {
             defaultPointsPerWrong = node.get("defaultPointsPerWrong").asInt();
             defaultPointsPerSkipped = node.get("defaultPointsPerSkipped").asInt();
             defaultPointScale = node.get("defaultPointScale").asDouble();
+            tournamentType = node.get("tournamenttype").asText();
+            if (tournamentType.contains("ffa")) {
+                matchesCount = Integer.parseInt(tournamentType.split("_")[1]);
+                tournamentType = tournamentType.split("_")[0];
+            } else {
+                matchesCount = -1;
+            }
             node.get("competitorNames").elements().forEachRemaining(
                     competitor -> competitors.add(new Competitor(competitor.asText())));
 
@@ -61,11 +71,11 @@ public class ConfigureTournamentController {
             throw new RuntimeException(e);
         }
 
-        PalaestraTournamentsApplication.tournament = new Tournament(competitors, new DefaultSettings(
+        PalaestraTournamentsApplication.tournament = new Tournament(new DefaultSettings(
                 defaultMultipleChoice, defaultQuestionLocking,
                 defaultPointsPerCorrect, defaultPointsPerWrong,
                 defaultPointsPerSkipped, defaultPointScale
-        ));
+        ), new MatchComposer(tournamentType, competitors, matchesCount));
 
         System.out.println(PalaestraTournamentsApplication.tournament);
 

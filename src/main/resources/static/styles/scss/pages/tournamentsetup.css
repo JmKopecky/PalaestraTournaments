@@ -185,7 +185,7 @@ input[type=submit]:active {
 }
 #competitor-container #competitor-list-container {
   width: 100%;
-  height: 92%;
+  height: 82%;
   overflow-y: scroll;
 }
 #competitor-container #competitor-list-container .competitor-tile {
@@ -199,6 +199,15 @@ input[type=submit]:active {
 }
 #competitor-container #competitor-list-container .competitor-tile input {
   margin-left: 5%;
+}
+#competitor-container #competitor-bottombar {
+  height: 10%;
+  width: 100%;
+  background-color: #141414;
+  position: relative;
+}
+#competitor-container #competitor-bottombar h3 {
+  margin: 0;
 }
 
 #options-container {

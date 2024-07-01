@@ -18,4 +18,19 @@ public class DefaultSettings {
         this.pointsPerSkipped = pointsPerSkipped;
         this.pointScale = pointScale;
     }
+
+
+    public String toString() {
+        String output = "";
+
+        output += "DEFAULT SETTINGS: \n";
+        output += "multipleChoice: " + multipleChoice + "\n";
+        output += "questionLocking: " + questionLocking + "\n";
+        output += "pointsPerCorrect: " + pointsPerCorrect + "\n";
+        output += "pointsPerWrong: " + pointsPerWrong + "\n";
+        output += "pointsPerSkipped: " + pointsPerSkipped + "\n";
+        output += "pointScale: " + pointScale + "\n";
+
+        return output;
+    }
 }
