@@ -4,33 +4,24 @@ import java.util.ArrayList;
 
 public class Tournament {
 
-    public ArrayList<Competitor> competitors;
     public DefaultSettings settings;
+    public MatchComposer matchComposer;
 
 
-    public Tournament(ArrayList<Competitor> competitors, DefaultSettings settings) {
-        this.competitors = competitors;
+    public Tournament(DefaultSettings settings, MatchComposer matchComposer) {
         this.settings = settings;
+        this.matchComposer = matchComposer;
     }
+
 
 
     public String toString() {
         String output = "";
-
-        output += "competitor:{";
-        for (Competitor competitor : competitors) {
-            output += competitor.name + ",";
-        }
-        output += "}";
-
-        output += "settings:{";
-        output += "defmultiplechoice=" + settings.multipleChoice + ",";
-        output += "defquestionlocking=" + settings.questionLocking + ",";
-        output += "defpointscorrect=" + settings.pointsPerCorrect + ",";
-        output += "defpointswrong=" + settings.pointsPerWrong + ",";
-        output += "defpointsskipped=" + settings.pointsPerSkipped + ",";
-        output += "defpointscale=" + settings.pointScale;
-        output += "}";
+        output += "TOURNAMENT STRING OUTPUT: \n";
+        output += "\n";
+        output += settings.toString();
+        output += "\n";
+        output += matchComposer.toString();
         return output;
     }
 }

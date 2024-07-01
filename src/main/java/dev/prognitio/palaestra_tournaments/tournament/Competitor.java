@@ -7,4 +7,13 @@ public class Competitor {
     public Competitor(String name) {
         this.name = name;
     }
+
+
+    public String toString() {
+        String output = "";
+
+        output += name;
+
+        return output;
+    }
 }

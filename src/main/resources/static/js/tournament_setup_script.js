@@ -23,6 +23,35 @@ function addCompetitorTile() {
     document.getElementById("competitor-list-container").appendChild(container);
 
     currentCountElem.innerText = "Count: " + currentCount;
+
+
+    document.getElementById("competitor-bottombar").setAttribute("style", "visibility: visible");
+    for (let i = 1; i < 8; i++) {
+        let requiredCount = 2 ** i;
+        if (currentCount === requiredCount) {
+            //single elimination tournament available
+            document.getElementById("single-elim-label").setAttribute("style", "visibility: visible");
+            document.getElementById("single-elim-radio").setAttribute("style", "visibility: visible");
+            break;
+        } else {
+            //single elimination tournament not available
+            document.getElementById("single-elim-label").setAttribute("style", "visibility: hidden");
+            document.getElementById("single-elim-radio").setAttribute("style", "visibility: hidden");
+            document.getElementById("ffa-radio").checked = true;
+            selectTournamentType();
+        }
+    }
+}
+
+
+function selectTournamentType() {
+    if (document.getElementById("ffa-radio").checked) {
+        document.getElementById("matches-count").setAttribute("style", "visibility: visible");
+        document.getElementById("matches_count_label").setAttribute("style", "visibility: visible");
+    } else {
+        document.getElementById("matches-count").setAttribute("style", "visibility: hidden");
+        document.getElementById("matches_count_label").setAttribute("style", "visibility: hidden");
+    }
 }
 
 
@@ -35,24 +64,25 @@ function submitTournamentData() {
         competitorNames.push(competitorTiles[i].getElementsByTagName("input").item(0).value);
     }
 
-    let defaultMultipleChoice = document.getElementById("select-multiple-choice").checked;
-    let defaultQuestionLocking = document.getElementById("select-question-locking").checked;
-    let defaultPointsPerCorrect = document.getElementById("select-points-per-correct").valueAsNumber;
-    let defaultPointsPerWrong = document.getElementById("select-points-per-wrong").valueAsNumber;
-    let defaultPointsPerSkipped = document.getElementById("select-points-per-skipped").valueAsNumber;
-    let defaultPointScale = document.getElementById("select-points-scale").valueAsNumber;
-
+    let tournamentType;
+    if (document.getElementById("ffa-radio").checked) {
+        tournamentType = "ffa_" + document.getElementById("matches-count").valueAsNumber;
+    }
+    if (document.getElementById("single-elim-radio").checked) {
+        tournamentType = "singleelim";
+    }
 
     fetch("/tournamentsetup", {
         method: "POST",
         body: JSON.stringify({
             "competitorNames" : competitorNames,
-            "defaultMultipleChoice" : defaultMultipleChoice,
-            "defaultQuestionLocking" : defaultQuestionLocking,
-            "defaultPointsPerCorrect" : defaultPointsPerCorrect,
-            "defaultPointsPerWrong" : defaultPointsPerWrong,
-            "defaultPointsPerSkipped" : defaultPointsPerSkipped,
-            "defaultPointScale" : defaultPointScale,
+            "defaultMultipleChoice" : document.getElementById("select-multiple-choice").checked,
+            "defaultQuestionLocking" : document.getElementById("select-question-locking").checked,
+            "defaultPointsPerCorrect" : document.getElementById("select-points-per-correct").valueAsNumber,
+            "defaultPointsPerWrong" : document.getElementById("select-points-per-wrong").valueAsNumber,
+            "defaultPointsPerSkipped" : document.getElementById("select-points-per-skipped").valueAsNumber,
+            "defaultPointScale" : document.getElementById("select-points-scale").valueAsNumber,
+            "tournamenttype" : tournamentType
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
