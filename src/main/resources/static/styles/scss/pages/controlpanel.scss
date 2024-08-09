@@ -8,7 +8,6 @@ body {
   width: 100%;
   min-height: 50vh;
   margin-top: 3vh;
-  padding-bottom: 3vh;
 
   #bracket-header {
     width: 100%;
@@ -20,10 +19,11 @@ body {
   .bracket-tile {
     width: 20%;
     background: lighten($background, 1%);
-    margin-top: 5%;
-    padding: 2%;
+    margin-top: 1.25%;
+    margin-bottom: 1.25%;
+    padding: 0.2%;
 
-    h3 {
+    h3, h2 {
       margin-top: 2.5%;
       margin-bottom: 2.5%;
       width: 100%;
@@ -62,24 +62,17 @@ body {
   }
 
   .centered {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   #process-test {
-    margin-left: 50%;
-    transform: translateX(-50%);
     margin-top: 1em;
   }
 
-  #begin-match {
+  #begin-match-container {
     position: relative;
-    left: 50%;
     bottom: 1vh;
-    transform: translateX(-50%);
   }
-
-
-
 }

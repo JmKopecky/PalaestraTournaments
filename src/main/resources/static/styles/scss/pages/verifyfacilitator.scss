@@ -45,10 +45,10 @@ body {
       margin-top:2%;
     }
 
-    #verif_button_submit {
-      margin-left:50%;
+    .centered {
       margin-top:10%;
-      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
     }
   }
 }

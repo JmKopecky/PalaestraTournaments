@@ -126,11 +126,11 @@
       text-align: center;
     }
 
-    button {
-      width: fit-content;
+    #tournament-settings-submit {
+      width: 100%;
       margin-top: 5%;
-      margin-left: 50%;
-      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
     }
   }
 }
