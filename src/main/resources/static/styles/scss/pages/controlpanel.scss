@@ -1,0 +1,85 @@
+@import '../constants';
+
+body {
+  margin: 0;
+}
+
+#bracket-container {
+  width: 100%;
+  min-height: 50vh;
+  margin-top: 3vh;
+  padding-bottom: 3vh;
+
+  #bracket-header {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    margin: 0;
+  }
+
+  .bracket-tile {
+    width: 20%;
+    background: lighten($background, 1%);
+    margin-top: 5%;
+    padding: 2%;
+
+    h3 {
+      margin-top: 2.5%;
+      margin-bottom: 2.5%;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .tile-ffa {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .selected-match {
+    border: 1px solid $primary;
+  }
+}
+
+
+#match-config-container {
+  width: 100%;
+  min-height: 50vh;
+  background: lighten($background, 3%);
+  position: relative;
+
+  #match-config-header {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    margin: 0;
+  }
+
+  #combatants {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+  }
+
+  .centered {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+  }
+
+  #process-test {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1em;
+  }
+
+  #begin-match {
+    position: relative;
+    left: 50%;
+    bottom: 1vh;
+    transform: translateX(-50%);
+  }
+
+
+
+}
