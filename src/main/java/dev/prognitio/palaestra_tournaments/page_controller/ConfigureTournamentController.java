@@ -13,6 +13,7 @@ import dev.prognitio.palaestra_tournaments.tournament.Competitor;
 import dev.prognitio.palaestra_tournaments.tournament.DefaultSettings;
 import dev.prognitio.palaestra_tournaments.tournament.MatchComposer;
 import dev.prognitio.palaestra_tournaments.tournament.Tournament;
+import jakarta.servlet.http.HttpServletResponse;
 import netscape.javascript.JSObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,7 @@ public class ConfigureTournamentController {
         ), new MatchComposer(tournamentType, competitors, matchesCount));
 
         System.out.println(PalaestraTournamentsApplication.tournament);
+
 
         return "tournament_setup"; //"redirect:/URL"
     }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="/styles/scss/pages/controlpanel.css">
+    <link rel="icon" type="image/x-icon" href="/images/palaestra_logo.png">
+    <script th:inline="javascript">let tournament = [[${tournamentData}]];let selected;</script>
+    <script type="text/javascript" src="/js/controlpanel_script.js"></script>
+</head>
+<body>
+
+<div id="bracket-container">
+    <h1 id="bracket-header">Palaestra Control Panel</h1>
+</div>
+
+<div id="match-config-container">
+    <h1 id="match-config-header">Match Config</h1>
+    <p id="combatants">Select a match up</p>
+    <div class="centered">
+        <label for="test" id="test-label">Test: </label>
+        <input id="test" type="text"/>
+    </div>
+    <br>
+    <button id="process-test">Process Test</button>
+    <div id="question-container">
+
+    </div>
+    <button id="begin-match">Begin Match</button>
+</div>
+
+</body>
+</html>

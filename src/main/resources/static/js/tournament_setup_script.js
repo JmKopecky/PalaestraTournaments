@@ -72,20 +72,21 @@ function submitTournamentData() {
         tournamentType = "singleelim";
     }
 
+    //submit form
     fetch("/tournamentsetup", {
         method: "POST",
         body: JSON.stringify({
-            "competitorNames" : competitorNames,
-            "defaultMultipleChoice" : document.getElementById("select-multiple-choice").checked,
-            "defaultQuestionLocking" : document.getElementById("select-question-locking").checked,
-            "defaultPointsPerCorrect" : document.getElementById("select-points-per-correct").valueAsNumber,
-            "defaultPointsPerWrong" : document.getElementById("select-points-per-wrong").valueAsNumber,
-            "defaultPointsPerSkipped" : document.getElementById("select-points-per-skipped").valueAsNumber,
-            "defaultPointScale" : document.getElementById("select-points-scale").valueAsNumber,
-            "tournamenttype" : tournamentType
+            "competitorNames": competitorNames,
+            "defaultMultipleChoice": document.getElementById("select-multiple-choice").checked,
+            "defaultQuestionLocking": document.getElementById("select-question-locking").checked,
+            "defaultPointsPerCorrect": document.getElementById("select-points-per-correct").valueAsNumber,
+            "defaultPointsPerWrong": document.getElementById("select-points-per-wrong").valueAsNumber,
+            "defaultPointsPerSkipped": document.getElementById("select-points-per-skipped").valueAsNumber,
+            "defaultPointScale": document.getElementById("select-points-scale").valueAsNumber,
+            "tournamenttype": tournamentType
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-    });
+    }).then(r => window.location.replace(window.location.origin + "/controlpanel"));
 }
