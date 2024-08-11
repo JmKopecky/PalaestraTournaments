@@ -169,10 +169,10 @@ body {
   width: 100%;
   margin-top: 2%;
 }
-#verifykey-container form #verif_button_submit {
-  margin-left: 50%;
+#verifykey-container form .centered {
   margin-top: 10%;
-  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=verifyfacilitator.css.map */
