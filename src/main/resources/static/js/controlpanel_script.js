@@ -66,7 +66,7 @@ function updateServerTestData() {
 
     let data = {
         targetMatch: selectedMatch,
-        testString: document.getElementById("test").innerText
+        testString: document.getElementById("test").value
     }
     fetch(window.location.href, {
         body: JSON.stringify(data),
@@ -86,5 +86,21 @@ function updateServerTestData() {
 
 
 function populateQuestionTiles(data) {
+    for (const question of data) {
+        const questionTile = document.createElement("div");
+        const bodyText = document.createElement("p");
+        bodyText.innerText = question.questionBody;
+        questionTile.appendChild(bodyText);
+        const answerText = document.createElement("p");
+        answerText.innerText = question.answer;
+        questionTile.appendChild(answerText);
+        const answerChoicesText = document.createElement("p");
+        for (const falseAnswer of question.alternateAnswers) {
+            answerChoicesText.innerText += falseAnswer + ",";
+        }
+        answerChoicesText.innerText = answerChoicesText.innerText.slice(0, -1);
+        questionTile.appendChild(answerChoicesText);
 
+        document.getElementById("question-container").appendChild(questionTile);
+    }
 }

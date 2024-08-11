@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dev.prognitio.palaestra_tournaments.PalaestraTournamentsApplication;
+import dev.prognitio.palaestra_tournaments.test_parsing.Test;
 import dev.prognitio.palaestra_tournaments.tournament.Competitor;
 import dev.prognitio.palaestra_tournaments.tournament.DefaultSettings;
 import dev.prognitio.palaestra_tournaments.tournament.MatchComposer;
@@ -32,19 +33,21 @@ public class ControlPanelController {
 
     @PostMapping(value = "/controlpanel", produces = "application/json")
     public ResponseEntity<?> controlPanel(Model model, @RequestBody String data) {
-
+        String targetMatch;
+        String testString;
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(data);
-            //defaultMultipleChoice = node.get("defaultMultipleChoice").asBoolean();
-
+            targetMatch = node.get("targetMatch").asText();
+            testString = node.get("testString").asText();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        HashMap<String, String> questions = new HashMap<>();
-        questions.put("hi", "x");
-        return new ResponseEntity<>(questions, HttpStatus.OK);
+        Test test = new Test(testString);
+        PalaestraTournamentsApplication.tournament.matchComposer.getMatchWithKey(targetMatch).test = test;
+
+        return new ResponseEntity<>(test.questions, HttpStatus.OK);
     }
 }
