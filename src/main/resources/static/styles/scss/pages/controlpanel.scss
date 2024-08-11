@@ -47,32 +47,69 @@ body {
   min-height: 50vh;
   background: lighten($background, 3%);
   position: relative;
-
   #match-config-header {
     width: 100%;
     height: fit-content;
     text-align: center;
     margin: 0;
   }
-
   #combatants {
     margin-left: 50%;
     transform: translateX(-50%);
     width: fit-content;
   }
-
   .centered {
     width: 100%;
     display: flex;
     justify-content: center;
   }
-
   #process-test {
     margin-top: 1em;
   }
-
   #begin-match-container {
     position: relative;
     bottom: 1vh;
+  }
+  #question-container {
+    position: relative;
+    padding-bottom: 10vh;
+    .question-tile {
+      width: 80%;
+      margin-left: 10%;
+      display: flex;
+      align-items: center;
+      .question-text {
+        width: 50%;
+        float: left;
+      }
+      .answer-container {
+        width: 50%;
+        float: right;
+        padding: 1em;
+        label {
+          width: 100%;
+        }
+        input {
+          width: 100%;
+        }
+        input.answer-input {
+          width: fit-content;
+        }
+      }
+    }
+  }
+  #question-container::after {
+    content:'';
+    position:absolute;
+    display: block;
+    background-color: darken($primary, 20%);
+    width:60%;
+    height: 3px;
+    bottom:0;
+    left:20%;
+  }
+  #begin-match-container {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
   }
 }

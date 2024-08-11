@@ -86,20 +86,51 @@ function updateServerTestData() {
 
 
 function populateQuestionTiles(data) {
+
+    const toRemove = document.getElementById("question-container");
+    while (toRemove.firstChild) {
+        toRemove.removeChild(toRemove.lastChild);
+    }
+
     for (const question of data) {
         const questionTile = document.createElement("div");
+        questionTile.classList.add("question-tile");
+
         const bodyText = document.createElement("p");
         bodyText.innerText = question.questionBody;
+        bodyText.classList.add("question-text");
         questionTile.appendChild(bodyText);
-        const answerText = document.createElement("p");
-        answerText.innerText = question.answer;
-        questionTile.appendChild(answerText);
-        const answerChoicesText = document.createElement("p");
+
+        const answerContainer = document.createElement("div");
+        answerContainer.classList.add("answer-container");
+
+        const answerLabel = document.createElement("label");
+        answerLabel.innerText = "Answer: ";
+        const answerText = document.createElement("input");
+        answerText.value = question.answer;
+        answerText.classList.add("answer-input");
+        answerContainer.appendChild(answerLabel);
+        answerContainer.appendChild(answerText);
+
+        answerContainer.appendChild(document.createElement("br"));
+
+        const answerChoicesLabel = document.createElement("label");
+        answerChoicesLabel.innerText = "Wrong Answer Choices: ";
+        const answerChoicesText = document.createElement("input");
+        let answerChoiceTextValue = "";
         for (const falseAnswer of question.alternateAnswers) {
-            answerChoicesText.innerText += falseAnswer + ",";
+            answerChoiceTextValue += falseAnswer + ", ";
         }
-        answerChoicesText.innerText = answerChoicesText.innerText.slice(0, -1);
-        questionTile.appendChild(answerChoicesText);
+        answerChoiceTextValue = answerChoiceTextValue.slice(0, -1);
+        answerChoicesText.value = answerChoiceTextValue;
+        answerContainer.appendChild(answerChoicesLabel);
+        answerContainer.appendChild(answerChoicesText);
+
+        questionTile.appendChild(answerContainer);
+
+        const fixFloat = document.createElement("div");
+        fixFloat.setAttribute("style", "clear: both");
+        questionTile.appendChild(fixFloat);
 
         document.getElementById("question-container").appendChild(questionTile);
     }
