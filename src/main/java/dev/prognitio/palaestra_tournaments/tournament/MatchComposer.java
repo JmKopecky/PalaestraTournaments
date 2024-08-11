@@ -30,7 +30,7 @@ public class MatchComposer {
 
     public Match getMatchWithKey(String key) {
         if (type.equals("ffa")) {
-            return matches.get(Integer.parseInt(key.split("Match ")[1].split("_")[0]));
+            return matches.get(Integer.parseInt(key.split("Match ")[1].split("_")[0]) - 1);
         } else if (type.equals("singleelim")) {
             //TODO
         }

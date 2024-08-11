@@ -195,5 +195,47 @@ body {
   position: relative;
   bottom: 1vh;
 }
+#match-config-container #question-container {
+  position: relative;
+  padding-bottom: 10vh;
+}
+#match-config-container #question-container .question-tile {
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  align-items: center;
+}
+#match-config-container #question-container .question-tile .question-text {
+  width: 50%;
+  float: left;
+}
+#match-config-container #question-container .question-tile .answer-container {
+  width: 50%;
+  float: right;
+  padding: 1em;
+}
+#match-config-container #question-container .question-tile .answer-container label {
+  width: 100%;
+}
+#match-config-container #question-container .question-tile .answer-container input {
+  width: 100%;
+}
+#match-config-container #question-container .question-tile .answer-container input.answer-input {
+  width: fit-content;
+}
+#match-config-container #question-container::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: #841f78;
+  width: 60%;
+  height: 3px;
+  bottom: 0;
+  left: 20%;
+}
+#match-config-container #begin-match-container {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
 
 /*# sourceMappingURL=controlpanel.css.map */
