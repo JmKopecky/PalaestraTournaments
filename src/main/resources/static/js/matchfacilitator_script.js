@@ -6,9 +6,11 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
 
-    stompClient.subscribe('/topic/incomingfacilitator', (response) => {
+    stompClient.subscribe('/topic/postfacilitatorconnected', (response) => {
         let status = JSON.parse(response.body).body.status;
+        let competitorStatus = JSON.parse(response.body).body.competitorStatus;
         console.log("received response: " + status);
+        console.log("received competitor status: " + competitorStatus.body);
         const facilitatorConnectedStatus = document.getElementById("facilitator-status");
         facilitatorConnectedStatus.innerText = status;
         if (status === "Connected") {
