@@ -14,24 +14,28 @@ h1 {
   color: white;
   font-family: "Playfair Display", serif;
   font-weight: 900;
+  margin: 0;
 }
 
 h2 {
   color: #fff9fd;
   font-family: "Playfair Display", serif;
   font-weight: 750;
+  margin: 0;
 }
 
 h3 {
   color: #ffe9f8;
   font-family: "Playfair Display", serif;
   font-weight: 600;
+  margin: 0;
 }
 
 p {
   color: #FFDAF3;
   font-family: "Playfair Display", serif;
   font-weight: 400;
+  margin: 0;
 }
 
 a {
@@ -128,6 +132,15 @@ input[type=submit]:hover {
 input[type=submit]:active {
   scale: 110%;
   background-color: #ae289e;
+}
+
+#auth-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 40vh;
+  margin-top: 30vh;
 }
 
 /*# sourceMappingURL=matchclient.css.map */

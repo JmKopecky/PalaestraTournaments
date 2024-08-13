@@ -1,5 +1,10 @@
 @import '../constants';
 
 #auth-container {
-
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 40vh;
+  margin-top: 30vh;
 }

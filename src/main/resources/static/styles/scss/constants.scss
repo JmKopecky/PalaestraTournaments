@@ -31,24 +31,28 @@ h1 {
   color: lighten($secondary, 10%);
   font-family: $playfair-family;
   font-weight: 900;
+  margin: 0;
 }
 
 h2 {
   color: lighten($secondary, 6%);
   font-family: $playfair-family;
   font-weight: 750;
+  margin: 0;
 }
 
 h3 {
   color: lighten($secondary, 3%);
   font-family: $playfair-family;
   font-weight: 600;
+  margin: 0;
 }
 
 p {
   color: $secondary;
   font-family: $playfair-family;
   font-weight: 400;
+  margin: 0;
 }
 
 

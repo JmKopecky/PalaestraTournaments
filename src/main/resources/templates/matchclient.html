@@ -5,16 +5,21 @@
     <title>Match: Contestant Mode</title>
     <link rel="stylesheet" href="/styles/scss/pages/matchclient.css">
     <link rel="icon" type="image/x-icon" href="/images/palaestra_logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script type="text/javascript" src="/js/matchclient_script.js"></script>
 </head>
 <body>
 
 <div id="auth-container">
     <h1>Authenticate</h1>
-    <label for="competitor-name-input">Competitor Name: </label>
-    <input id="competitor-name-input" type="text">
-    <label for="competitor-password-input">Password: </label>
-    <input id="competitor-password-input" type="number">
+    <div>
+        <label for="competitor-name-input">Competitor Name: </label>
+        <input id="competitor-name-input" type="text">
+    </div>
+    <div>
+        <label for="competitor-password-input">Password: </label>
+        <input id="competitor-password-input" type="number">
+    </div>
     <button onclick="auth()">Sign In</button>
 </div>
 
