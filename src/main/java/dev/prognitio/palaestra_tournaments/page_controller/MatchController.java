@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class MatchController {
@@ -34,6 +35,9 @@ public class MatchController {
     @SendTo("/topic/postfacilitatorconnected")
     public ResponseEntity<?> verifyFacilitatorConnection(String message) {
         System.out.println("Received message in verifyFacilitatorConnection(): " + message);
+        for (Map.Entry<String, String> entry : competitorStatus.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
         return new ResponseEntity<>(new PostFacilitatorConnectedMessage("Connected", competitorStatus), HttpStatus.OK);
     }
 

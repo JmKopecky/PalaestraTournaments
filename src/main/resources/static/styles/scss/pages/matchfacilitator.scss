@@ -22,4 +22,16 @@
     align-items: center;
     flex-flow: row;
   }
+  #client-connection-container {
+    width: 60%;
+    height: fit-content;
+    .client-connection-tile {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-flow: row;
+    }
+  }
 }
