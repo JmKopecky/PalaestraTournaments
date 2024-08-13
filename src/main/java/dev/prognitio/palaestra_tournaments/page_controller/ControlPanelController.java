@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dev.prognitio.palaestra_tournaments.PalaestraTournamentsApplication;
 import dev.prognitio.palaestra_tournaments.test_parsing.Test;
-import dev.prognitio.palaestra_tournaments.tournament.Competitor;
-import dev.prognitio.palaestra_tournaments.tournament.DefaultSettings;
-import dev.prognitio.palaestra_tournaments.tournament.MatchComposer;
-import dev.prognitio.palaestra_tournaments.tournament.Tournament;
+import dev.prognitio.palaestra_tournaments.tournament.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,7 +43,11 @@ public class ControlPanelController {
         }
 
         Test test = new Test(testString);
-        PalaestraTournamentsApplication.tournament.matchComposer.getMatchWithKey(targetMatch).test = test;
+        Tournament tournament = PalaestraTournamentsApplication.tournament;
+        Match currentMatch = tournament.matchComposer.getMatchWithKey(targetMatch);
+        currentMatch.test = test;
+        PalaestraTournamentsApplication.currentMatchIndex = tournament.matchComposer.matches.indexOf(currentMatch);
+
 
         return new ResponseEntity<>(test.questions, HttpStatus.OK);
     }

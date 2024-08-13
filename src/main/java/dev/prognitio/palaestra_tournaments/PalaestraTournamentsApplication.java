@@ -16,6 +16,7 @@ public class PalaestraTournamentsApplication {
     public static HashMap<String, String> FACILITATOR_KEY = new HashMap<>();
 
     public static Tournament tournament;
+    public static int currentMatchIndex = -1;
 
 
 

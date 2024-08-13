@@ -3,11 +3,32 @@ const stompClient = new StompJs.Client({
 });
 
 
+function processCompetitorStatus(competitorStatus) {
+    const targetContainer = document.getElementById("client-connection-container");
+    while (targetContainer.firstChild) {
+        targetContainer.removeChild(targetContainer.lastChild);
+    }
+    for (const competitor in competitorStatus) {
+        const container = document.createElement("div");container.classList.add("client-connection-tile");
+        const competitorName = document.createElement("h1");competitorName.innerText = competitor;
+        const perCompStatus = document.createElement("h2");perCompStatus.innerText = competitorStatus[competitor];
+        if (perCompStatus.innerText === "Connected") {
+            perCompStatus.classList.add("connected");
+        } else if (perCompStatus.innerText === "Disconnected") {
+            perCompStatus.classList.add("disconnected");
+        }
+        container.appendChild(competitorName);container.appendChild(perCompStatus);
+        targetContainer.appendChild(container);
+    }
+}
+
+
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
 
-    stompClient.subscribe('/topic/incomingfacilitator', (response) => {
+    stompClient.subscribe('/topic/postfacilitatorconnected', (response) => {
         let status = JSON.parse(response.body).body.status;
+        let competitorStatus = JSON.parse(response.body).body.competitorStatus;
         console.log("received response: " + status);
         const facilitatorConnectedStatus = document.getElementById("facilitator-status");
         facilitatorConnectedStatus.innerText = status;
@@ -15,6 +36,8 @@ stompClient.onConnect = (frame) => {
             facilitatorConnectedStatus.classList.remove("disconnected");
             facilitatorConnectedStatus.classList.add("connected");
         }
+
+        processCompetitorStatus(competitorStatus);
     });
 
     sendData();
