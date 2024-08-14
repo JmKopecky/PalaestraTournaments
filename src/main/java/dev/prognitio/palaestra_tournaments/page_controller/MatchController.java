@@ -50,6 +50,14 @@ public class MatchController {
     }
 
 
+    @MessageMapping("/facilitatorbeginmatch")
+    @SendTo("/topic/matchinit")
+    public ResponseEntity<?> beginMatch() {
+        System.out.println("Beginning match...");
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
     @GetMapping("/matchclient")
     public String matchClient(Model model) {
         return "matchclient";

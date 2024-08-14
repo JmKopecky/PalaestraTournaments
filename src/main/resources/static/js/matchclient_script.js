@@ -16,7 +16,9 @@ function auth() {
         return response.text().then((data) => {
             sessionStorage.setItem("competitor", data.substring(data.indexOf("_") + 1, data.lastIndexOf("_")));
             sessionStorage.setItem("password", data.substring(data.lastIndexOf("_")));
-            informFacilitator();
+            informFacilitatorConnected();
+            document.getElementById("auth-container").style.display = "none";
+            document.getElementById("waiting-container").style.display = "flex";
             return data;
         }).catch((err) => {
             console.log(err);
@@ -32,6 +34,10 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
+
+    stompClient.subscribe("/topic/matchinit", (response) => {
+        console.log("match began");
+    })
 };
 
 
@@ -46,7 +52,7 @@ stompClient.onStompError = (frame) => {
 };
 
 
-function informFacilitator() {
+function informFacilitatorConnected() {
     stompClient.publish({
         destination: "/app/verifyfacilitatorconnection",
         body: "Client connected: " + sessionStorage.getItem("competitor")

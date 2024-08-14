@@ -143,4 +143,13 @@ input[type=submit]:active {
   margin-top: 30vh;
 }
 
+#waiting-container {
+  height: 40vh;
+  margin-top: 30vh;
+  display: none;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /*# sourceMappingURL=matchclient.css.map */
