@@ -17,11 +17,29 @@ function processCompetitorStatus(competitorStatus, competitorPasswords) {
         } else if (perCompStatus.innerText === "Disconnected") {
             perCompStatus.classList.add("disconnected");
         }
+        competitorName.innerText += " (" + competitorPasswords[competitorName.innerText] + ")";
         container.appendChild(competitorName);container.appendChild(perCompStatus);
         targetContainer.appendChild(container);
     }
+}
 
-    console.log(competitorPasswords);
+
+function beginMatch() {
+    let anyDisconnected = false;
+    for (const client of document.getElementById("client-connection-container").children) {
+        console.log("running beginMatch checks");
+        if (!client.getElementsByTagName("h2")[0].classList.contains("connected")) {
+            console.log("some are disconnected");
+            anyDisconnected = true;
+        }
+    }
+    if (!anyDisconnected) {
+        //proceed and begin match.
+        console.log("beginning match");
+        stompClient.publish({
+            destination: "/app/facilitatorbeginmatch"
+        })
+    }
 }
 
 
@@ -39,9 +57,12 @@ stompClient.onConnect = (frame) => {
             facilitatorConnectedStatus.classList.remove("disconnected");
             facilitatorConnectedStatus.classList.add("connected");
         }
-
         processCompetitorStatus(competitorStatus, competitorPasswords);
     });
+
+    stompClient.subscribe("/topic/matchinit", (response) => {
+        console.log("match began");
+    })
 
     sendData();
 };
