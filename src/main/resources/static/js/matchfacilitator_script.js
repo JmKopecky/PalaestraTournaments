@@ -3,7 +3,7 @@ const stompClient = new StompJs.Client({
 });
 
 
-function processCompetitorStatus(competitorStatus) {
+function processCompetitorStatus(competitorStatus, competitorPasswords) {
     const targetContainer = document.getElementById("client-connection-container");
     while (targetContainer.firstChild) {
         targetContainer.removeChild(targetContainer.lastChild);
@@ -20,6 +20,8 @@ function processCompetitorStatus(competitorStatus) {
         container.appendChild(competitorName);container.appendChild(perCompStatus);
         targetContainer.appendChild(container);
     }
+
+    console.log(competitorPasswords);
 }
 
 
@@ -29,6 +31,7 @@ stompClient.onConnect = (frame) => {
     stompClient.subscribe('/topic/postfacilitatorconnected', (response) => {
         let status = JSON.parse(response.body).body.status;
         let competitorStatus = JSON.parse(response.body).body.competitorStatus;
+        let competitorPasswords = JSON.parse(response.body).body.competitorPasswords;
         console.log("received response: " + status);
         const facilitatorConnectedStatus = document.getElementById("facilitator-status");
         facilitatorConnectedStatus.innerText = status;
@@ -37,7 +40,7 @@ stompClient.onConnect = (frame) => {
             facilitatorConnectedStatus.classList.add("connected");
         }
 
-        processCompetitorStatus(competitorStatus);
+        processCompetitorStatus(competitorStatus, competitorPasswords);
     });
 
     sendData();

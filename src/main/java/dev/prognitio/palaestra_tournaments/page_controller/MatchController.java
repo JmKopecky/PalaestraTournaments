@@ -1,5 +1,8 @@
 package dev.prognitio.palaestra_tournaments.page_controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.prognitio.palaestra_tournaments.PalaestraTournamentsApplication;
 import dev.prognitio.palaestra_tournaments.messages.PostFacilitatorConnectedMessage;
 import dev.prognitio.palaestra_tournaments.tournament.Competitor;
@@ -11,14 +14,18 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class MatchController {
     Match match;
     HashMap<String, String> competitorStatus = new HashMap<>();
+    HashMap<String, Integer> competitorPasswords = new HashMap<>();
 
 
     @GetMapping("/matchfacilitator")
@@ -26,6 +33,7 @@ public class MatchController {
         match = PalaestraTournamentsApplication.tournament.matchComposer.matches.get(PalaestraTournamentsApplication.currentMatchIndex);
         for (Competitor competitor : match.competitors) {
             competitorStatus.put(competitor.name, "Disconnected");
+            competitorPasswords.put(competitor.name, genPassword());
         }
         return "matchfacilitator";
     }
@@ -38,13 +46,48 @@ public class MatchController {
         for (Map.Entry<String, String> entry : competitorStatus.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
-        return new ResponseEntity<>(new PostFacilitatorConnectedMessage("Connected", competitorStatus), HttpStatus.OK);
+        return new ResponseEntity<>(new PostFacilitatorConnectedMessage("Connected", competitorStatus, competitorPasswords), HttpStatus.OK);
     }
 
 
     @GetMapping("/matchclient")
     public String matchClient(Model model) {
-
         return "matchclient";
+    }
+
+    @PostMapping("/matchclient")
+    public ResponseEntity<?> matchClientAuth(Model model, @RequestBody String data) {
+        String assertedCompetitor;
+        int assertedPassword;
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(data);
+            assertedCompetitor = node.get("assertedCompetitor").asText();
+            assertedPassword = node.get("assertedPassword").asInt();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (competitorPasswords.containsKey(assertedCompetitor)) {
+            if (competitorPasswords.get(assertedCompetitor) == assertedPassword) {
+                competitorStatus.put(assertedCompetitor, "Connected");
+                return new ResponseEntity<>("Success_" + assertedCompetitor + "_" + assertedPassword, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Fail", HttpStatus.UNAUTHORIZED);
+            }
+        } else {
+            return new ResponseEntity<>("Competitor not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    public int genPassword() {
+        Random random = new Random();
+        int attemptPassword = random.nextInt(111111, 999999);
+        if (competitorPasswords.containsValue(attemptPassword)) {
+            return genPassword();
+        }
+        return attemptPassword;
     }
 }
