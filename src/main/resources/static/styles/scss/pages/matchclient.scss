@@ -17,3 +17,26 @@
   justify-content: center;
   align-items: center;
 }
+
+#question-container {
+  display: none;
+  height: 70vh;
+  margin-top: 15vh;
+  width: 80%;
+  margin-left: 10%;
+  #question-num {
+    width: 100%;
+  }
+  #question-data-container {
+    #question-text {
+      width: 45%;
+      padding-right: 5%;
+      float: left;
+    }
+    #question-answer-list {
+      margin-left: 5%;
+      padding: 45%;
+      float: right;
+    }
+  }
+}

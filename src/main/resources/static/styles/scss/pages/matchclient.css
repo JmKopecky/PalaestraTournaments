@@ -152,4 +152,25 @@ input[type=submit]:active {
   align-items: center;
 }
 
+#question-container {
+  display: none;
+  height: 70vh;
+  margin-top: 15vh;
+  width: 80%;
+  margin-left: 10%;
+}
+#question-container #question-num {
+  width: 100%;
+}
+#question-container #question-data-container #question-text {
+  width: 45%;
+  padding-right: 5%;
+  float: left;
+}
+#question-container #question-data-container #question-answer-list {
+  margin-left: 5%;
+  padding: 45%;
+  float: right;
+}
+
 /*# sourceMappingURL=matchclient.css.map */

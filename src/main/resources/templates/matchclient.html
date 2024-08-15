@@ -25,7 +25,20 @@
 
 <div id="waiting-container">
     <h1>Successfully Authenticated!</h1>
-    <p>Waiting for facilitator...</p>
+    <p>Waiting...</p>
+</div>
+
+<div id="question-container">
+    <h1 id="question-num">Question #</h1>
+    <div id="question-data-container">
+        <p id="question-text"></p>
+        <div id="question-answer-list">
+
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <button onclick="submitAnswer()">Submit</button>
+    <button onclick="skipQuestion()">Skip</button>
 </div>
 
 </body>

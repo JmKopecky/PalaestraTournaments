@@ -27,6 +27,16 @@ function auth() {
 }
 
 
+function submitAnswer() {
+    console.log("submitting...");
+}
+
+
+function skipQuestion() {
+    console.log("skipping...");
+}
+
+
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/palaestra-websocket'
 });
@@ -35,8 +45,21 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
 
-    stompClient.subscribe("/topic/matchinit", (response) => {
+    stompClient.subscribe("/topic/beginmatchinit", (response) => {
         console.log("match began");
+    })
+
+    stompClient.subscribe("/topic/receivequestion", (response) => {
+        if (JSON.parse(response.body).body.for === "facilitator") {
+            stompClient.publish({
+                destination: "/app/requestquestiondata",
+                body: sessionStorage.getItem("competitor")
+            })
+        } else {
+            console.log(JSON.parse(response.body).body);
+            document.getElementById("waiting-container").style.display = "none";
+            document.getElementById("question-container").style.display = "block";
+        }
     })
 };
 
