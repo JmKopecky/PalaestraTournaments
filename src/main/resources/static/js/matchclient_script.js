@@ -56,9 +56,29 @@ stompClient.onConnect = (frame) => {
                 body: sessionStorage.getItem("competitor")
             })
         } else {
-            console.log(JSON.parse(response.body).body);
+            let data = JSON.parse(response.body).body
             document.getElementById("waiting-container").style.display = "none";
             document.getElementById("question-container").style.display = "block";
+
+
+            const qnumElem = document.getElementById("question-num");
+            qnumElem.innerText = qnumElem.innerText.split("#")[0] + "#" + data["qnum"];
+
+            const qtextElem = document.getElementById("question-text");
+            qtextElem.innerText = data["qbody"];
+
+            const questionAnswerContainer = document.getElementById("question-answer-list");
+            while (questionAnswerContainer.firstChild) {
+                questionAnswerContainer.removeChild(questionAnswerContainer.lastChild);
+            }
+            for (const answerChoice of data["qoptions"]) {
+                const radioBox = document.createElement("input");radioBox.type = "radio";
+                radioBox.name = "answers"; radioBox.value = answerChoice;radioBox.id = answerChoice;
+                const label = document.createElement("label");
+                label.innerText = answerChoice; label.htmlFor = answerChoice;
+                questionAnswerContainer.appendChild(radioBox);questionAnswerContainer.appendChild(label);
+                questionAnswerContainer.appendChild(document.createElement("br"));
+            }
         }
     })
 };
