@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.prognitio.palaestra_tournaments.PalaestraTournamentsApplication;
 import dev.prognitio.palaestra_tournaments.messages.PostFacilitatorConnectedMessage;
+import dev.prognitio.palaestra_tournaments.test_parsing.Question;
 import dev.prognitio.palaestra_tournaments.tournament.Competitor;
 import dev.prognitio.palaestra_tournaments.tournament.Match;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.Random;
 @Controller
 public class MatchController {
     Match match;
+    int questionIndex = 0;
     HashMap<String, String> competitorStatus = new HashMap<>();
     HashMap<String, Integer> competitorPasswords = new HashMap<>();
 
@@ -51,10 +53,27 @@ public class MatchController {
 
 
     @MessageMapping("/facilitatorbeginmatch")
-    @SendTo("/topic/matchinit")
-    public ResponseEntity<?> beginMatch() {
+    @SendTo("/topic/beginmatchinit")
+    public ResponseEntity<?> matchInit() {
         System.out.println("Beginning match...");
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    @MessageMapping("/requestquestiondata")
+    @SendTo("/topic/receivequestion")
+    public ResponseEntity<?> sendQuestion(String message) {
+        HashMap<String, Object> toReturn = new HashMap<>();
+        Question currentQuestion = match.test.questions.get(questionIndex);
+        toReturn.put("for", message);
+        toReturn.put("qnum", questionIndex + 1);
+        toReturn.put("qbody", currentQuestion.questionBody);
+        toReturn.put("qoptions", currentQuestion.alternateAnswers.isEmpty() ? "notmultiplechoice" : currentQuestion.alternateAnswers);
+        if (message.equals("facilitator")) {
+            toReturn.put("qanswer", currentQuestion.answer);
+            toReturn.put("score", match.matchScore);
+        }
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 
 
@@ -62,6 +81,7 @@ public class MatchController {
     public String matchClient(Model model) {
         return "matchclient";
     }
+
 
     @PostMapping("/matchclient")
     public ResponseEntity<?> matchClientAuth(Model model, @RequestBody String data) {

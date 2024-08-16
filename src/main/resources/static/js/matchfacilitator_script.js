@@ -60,8 +60,18 @@ stompClient.onConnect = (frame) => {
         processCompetitorStatus(competitorStatus, competitorPasswords);
     });
 
-    stompClient.subscribe("/topic/matchinit", (response) => {
+    stompClient.subscribe("/topic/beginmatchinit", (response) => {
         console.log("match began");
+        stompClient.publish({
+            destination: "/app/requestquestiondata",
+            body: "facilitator"
+        })
+    })
+
+    stompClient.subscribe("/topic/receivequestion", (response) => {
+        if (JSON.parse(response.body).body.for === "facilitator") {
+            console.log(JSON.parse(response.body).body);
+        }
     })
 
     sendData();

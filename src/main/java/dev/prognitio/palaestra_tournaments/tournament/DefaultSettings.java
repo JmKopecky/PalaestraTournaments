@@ -8,7 +8,7 @@ public class DefaultSettings {
     public int pointsPerCorrect;
     public int pointsPerWrong;
     public int pointsPerSkipped;
-    public double pointScale; //points = pointsPerCorrect + (point Scale * other competitors who have got it right)
+    public double pointScale; //points = pointsPerCorrect + (point Scale * attemptNum)
 
     public DefaultSettings(boolean multipleChoice, boolean questionLocking, int pointsPerCorrect, int pointsPerWrong, int pointsPerSkipped, double pointScale) {
         this.multipleChoice = multipleChoice;
