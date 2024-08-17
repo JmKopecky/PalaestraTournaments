@@ -84,3 +84,25 @@
     }
   }
 }
+
+#match-score-container {
+  display: none;
+  width: 100%;
+  min-height: 80vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  .place-tile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  #center-button {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4em;
+  }
+}

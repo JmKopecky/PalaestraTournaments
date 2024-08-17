@@ -63,7 +63,7 @@ stompClient.onConnect = (frame) => {
             if (JSON.parse(response.body).body.competitorrequest === true) {
                 stompClient.publish({
                     destination: "/app/requestquestiondata",
-                    body: sessionStorage.getItem("competitor") + "_false"
+                    body: sessionStorage.getItem("competitor") + "_false_false"
                 })
             }
         } else {
@@ -119,6 +119,35 @@ stompClient.onConnect = (frame) => {
             }
         }
     })
+
+    stompClient.subscribe("/topic/matchscore", (response) => {
+        document.getElementById("question-container").style.display = "none";
+        document.getElementById("result-container").style.display = "none";
+        document.getElementById("match-score-container").style.display = "block";
+        let data = JSON.parse(response.body).body;
+        let sorted = [];
+        for (const competitor in data) {
+            sorted.push([competitor, data[competitor]]);
+        }
+        sorted.sort(function(a, b) {
+            return a[1] - b[1];
+        });
+        for (let i = sorted.length - 1; i >= 0; i--) {
+            const placeTile = document.createElement("div");placeTile.classList.add("place-tile");
+            const place = document.createElement("h1");place.textContent = "" + (sorted.length - i);
+            placeTile.appendChild(place);
+            const competitor = document.createElement("h3");competitor.textContent = sorted[i][0];
+            placeTile.appendChild(competitor);
+            const score = document.createElement("h3");score.textContent = sorted[i][1];
+            placeTile.appendChild(score);
+            document.getElementById("match-placement-display").appendChild(placeTile);
+        }
+    });
+
+    stompClient.subscribe("/topic/forceclientsendmatch", (response) => {
+        stompClient.deactivate();
+        window.location.replace(window.location.origin);
+    });
 };
 
 

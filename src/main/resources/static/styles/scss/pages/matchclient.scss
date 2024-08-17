@@ -82,3 +82,18 @@ body {
     color: mix($background, red, 80%);
   }
 }
+
+#match-score-container {
+  display: none;
+  width: 80%;
+  min-height: 80vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  margin-left: 10%;
+  .place-tile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+}

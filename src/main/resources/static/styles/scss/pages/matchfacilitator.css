@@ -220,4 +220,26 @@ input[type=submit]:active {
   align-items: center;
 }
 
+#match-score-container {
+  display: none;
+  width: 100%;
+  min-height: 80vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+#match-score-container .place-tile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+#match-score-container #center-button {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4em;
+}
+
 /*# sourceMappingURL=matchfacilitator.css.map */

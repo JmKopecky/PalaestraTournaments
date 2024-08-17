@@ -66,6 +66,10 @@ public class MatchController {
     public ResponseEntity<?> sendQuestion(String message) {
         String forVal = message.split("_")[0];
         boolean shouldCompetitorsRequestData = Boolean.parseBoolean(message.split("_")[1]);
+        boolean nextQuestion = Boolean.parseBoolean(message.split("_")[2]);
+        if (nextQuestion) {
+            nextQuestion(false);
+        }
         HashMap<String, Object> toReturn = new HashMap<>();
         Question currentQuestion = match.test.questions.get(questionIndex);
         toReturn.put("for", forVal);
@@ -120,6 +124,21 @@ public class MatchController {
     }
 
 
+    @MessageMapping("/doscorescreen")
+    @SendTo("/topic/matchscore")
+    public ResponseEntity<?> doScoreScreen() {
+        System.out.println("Showing score screen.");
+        return new ResponseEntity<>(match.matchScore, HttpStatus.OK);
+    }
+
+
+    @MessageMapping("/endmatch")
+    @SendTo("/topic/forceclientsendmatch")
+    public ResponseEntity<?> endMatch() {
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
     @GetMapping("/matchclient")
     public String matchClient(Model model) {
         return "matchclient";
@@ -167,6 +186,9 @@ public class MatchController {
         if (matchInit) {
             questionIndex = 0;
         } else {
+            if (questionIndex + 1 >= match.test.questions.size()) {
+                return;
+            }
             questionIndex++;
         }
         competitorQuestionAttempts.clear();

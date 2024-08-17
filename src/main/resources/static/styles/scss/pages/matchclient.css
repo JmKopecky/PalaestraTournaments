@@ -217,4 +217,19 @@ body {
   color: #3b0808;
 }
 
+#match-score-container {
+  display: none;
+  width: 80%;
+  min-height: 80vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  margin-left: 10%;
+}
+#match-score-container .place-tile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
 /*# sourceMappingURL=matchclient.css.map */
