@@ -28,12 +28,21 @@ function auth() {
 
 
 function submitAnswer() {
-    console.log("submitting...");
+    let answer = document.querySelector("input[type = radio]:checked").value;
+    stompClient.publish({
+        destination: "/app/questionresponse",
+        body: sessionStorage.getItem("competitor") + "_" + answer
+    });
+    console.log("Answer: " + answer + " has been submitted");
 }
 
 
 function skipQuestion() {
-    console.log("skipping...");
+    stompClient.publish({
+        destination: "/app/questionresponse",
+        body: sessionStorage.getItem("competitor") + "_skipped"
+    });
+    console.log("Skipped question.");
 }
 
 
@@ -50,14 +59,17 @@ stompClient.onConnect = (frame) => {
     })
 
     stompClient.subscribe("/topic/receivequestion", (response) => {
-        if (JSON.parse(response.body).body.for === "facilitator") {
-            stompClient.publish({
-                destination: "/app/requestquestiondata",
-                body: sessionStorage.getItem("competitor")
-            })
+        if (JSON.parse(response.body).body["for"] === "facilitator") {
+            if (JSON.parse(response.body).body.competitorrequest === true) {
+                stompClient.publish({
+                    destination: "/app/requestquestiondata",
+                    body: sessionStorage.getItem("competitor") + "_false"
+                })
+            }
         } else {
-            let data = JSON.parse(response.body).body
+            let data = JSON.parse(response.body).body;
             document.getElementById("waiting-container").style.display = "none";
+            document.getElementById("result-container").style.display = "none";
             document.getElementById("question-container").style.display = "block";
 
 
@@ -78,6 +90,32 @@ stompClient.onConnect = (frame) => {
                 label.innerText = answerChoice; label.htmlFor = answerChoice;
                 questionAnswerContainer.appendChild(radioBox);questionAnswerContainer.appendChild(label);
                 questionAnswerContainer.appendChild(document.createElement("br"));
+            }
+        }
+    })
+
+    stompClient.subscribe("/topic/questionanswered", (response) => {
+        let data = JSON.parse(response.body).body;
+        if (data["competitor"] === sessionStorage["competitor"]) {
+            document.getElementById("question-container").style.display = "none";
+            document.getElementById("result-container").style.display = "flex";
+            if (data["wascorrect"]) {
+                document.getElementById("result-text").textContent = "Correct!";
+                document.getElementById("result-text").classList.add("correct-text");
+                document.getElementById("result-text").classList.remove("incorrect-text");
+                document.getElementById("result-container").classList.add("correct-container");
+                document.getElementById("result-container").classList.remove("incorrect-container");
+            } else {
+                document.getElementById("result-text").textContent = "Wrong.";
+                document.getElementById("result-text").classList.add("incorrect-text");
+                document.getElementById("result-text").classList.remove("correct-text");
+                document.getElementById("result-container").classList.add("incorrect-container");
+                document.getElementById("result-container").classList.remove("correct-container");
+
+                setTimeout(function() {
+                    document.getElementById("question-container").style.display = "block";
+                    document.getElementById("result-container").style.display = "none";
+                }, 3000);
             }
         }
     })

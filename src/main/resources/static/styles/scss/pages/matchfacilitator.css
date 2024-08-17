@@ -171,4 +171,53 @@ input[type=submit]:active {
   flex-flow: row;
 }
 
+#question-facilitation-container {
+  width: 90%;
+  margin-left: 5%;
+  height: 90%;
+  margin-top: 5%;
+  display: none;
+}
+#question-facilitation-container #question-info {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+#question-facilitation-container #question-info #question-num {
+  width: 100%;
+  text-align: center;
+}
+#question-facilitation-container #question-info #question-text {
+  padding-left: 5%;
+  width: 95%;
+}
+#question-facilitation-container #question-info #question-answer {
+  width: 100%;
+  text-align: center;
+}
+#question-facilitation-container #question-info #question-alt-answers {
+  width: 100%;
+  text-align: center;
+}
+#question-facilitation-container #competitor-info {
+  float: right;
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
+}
+#question-facilitation-container #competitor-info .competitor-tile {
+  width: 100%;
+  height: fit-content;
+}
+#question-facilitation-container #competitor-info .competitor-tile .competitor-name {
+  width: 100%;
+  text-align: center;
+}
+#question-facilitation-container #competitor-info .competitor-tile .competitor-data-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*# sourceMappingURL=matchfacilitator.css.map */
