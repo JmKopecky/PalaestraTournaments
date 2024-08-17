@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class MatchController {
@@ -28,6 +26,8 @@ public class MatchController {
     int questionIndex = 0;
     HashMap<String, String> competitorStatus = new HashMap<>();
     HashMap<String, Integer> competitorPasswords = new HashMap<>();
+    HashMap<String, Integer> competitorQuestionAttempts = new HashMap<>();
+    HashMap<String, Boolean> competitorSuccess = new HashMap<>();
 
 
     @GetMapping("/matchfacilitator")
@@ -56,6 +56,7 @@ public class MatchController {
     @SendTo("/topic/beginmatchinit")
     public ResponseEntity<?> matchInit() {
         System.out.println("Beginning match...");
+        nextQuestion(true);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -63,17 +64,59 @@ public class MatchController {
     @MessageMapping("/requestquestiondata")
     @SendTo("/topic/receivequestion")
     public ResponseEntity<?> sendQuestion(String message) {
+        String forVal = message.split("_")[0];
+        boolean shouldCompetitorsRequestData = Boolean.parseBoolean(message.split("_")[1]);
         HashMap<String, Object> toReturn = new HashMap<>();
         Question currentQuestion = match.test.questions.get(questionIndex);
-        toReturn.put("for", message);
+        toReturn.put("for", forVal);
+        toReturn.put("competitorrequest", shouldCompetitorsRequestData);
         toReturn.put("qnum", questionIndex + 1);
         toReturn.put("qbody", currentQuestion.questionBody);
-        toReturn.put("qoptions", currentQuestion.alternateAnswers.isEmpty() ? "notmultiplechoice" : currentQuestion.alternateAnswers);
-        if (message.equals("facilitator")) {
+        ArrayList<String> answers = new ArrayList<>();
+        if (currentQuestion.alternateAnswers.isEmpty()) {
+            answers.add("notmultiplechoice");
+        } else {
+            answers.addAll(currentQuestion.alternateAnswers);
+            answers.add(currentQuestion.answer);
+            Collections.shuffle(answers);
+        }
+        toReturn.put("qoptions", answers);
+        if (forVal.equals("facilitator")) {
             toReturn.put("qanswer", currentQuestion.answer);
+            toReturn.put("competitors", match.competitors);
             toReturn.put("score", match.matchScore);
+            toReturn.put("attempts", competitorQuestionAttempts);
+            toReturn.put("successes", competitorSuccess);
         }
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
+
+
+    @MessageMapping("/questionresponse")
+    @SendTo("/topic/questionanswered")
+    public ResponseEntity<?> processQuestionAttempt(String message) {
+        String competitor = message.split("_")[0];
+        String answer = message.split("_")[1];
+        int attemptNum = competitorQuestionAttempts.get(competitor);
+        competitorQuestionAttempts.put(competitor, attemptNum + 1);
+        boolean wasCorrect = match.test.questions.get(questionIndex).isCorrect(answer);
+        competitorSuccess.put(competitor, wasCorrect);
+
+        match.notifyQuestionAttempt(
+                competitor,
+                wasCorrect,
+                answer.equals("skipped"),
+                attemptNum,
+                PalaestraTournamentsApplication.tournament.settings);
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("competitor", competitor);
+        response.put("wascorrect", wasCorrect);
+        boolean shouldEndQuestion = PalaestraTournamentsApplication.tournament.settings.questionLocking && wasCorrect;
+        response.put("continue", shouldEndQuestion);
+        response.put("successes", competitorSuccess);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
@@ -117,5 +160,20 @@ public class MatchController {
             return genPassword();
         }
         return attemptPassword;
+    }
+
+
+    public void nextQuestion(boolean matchInit) {
+        if (matchInit) {
+            questionIndex = 0;
+        } else {
+            questionIndex++;
+        }
+        competitorQuestionAttempts.clear();
+        competitorSuccess.clear();
+        for (Competitor competitor : match.competitors) {
+            competitorQuestionAttempts.put(competitor.name, 0);
+            competitorSuccess.put(competitor.name, false);
+        }
     }
 }

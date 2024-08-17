@@ -13,4 +13,24 @@ public class Question {
         this.answer = answer;
         this.alternateAnswers = alternateAnswers;
     }
+
+
+    public boolean isCorrect(String attempt) {
+        try {
+            double answerAsDouble = Double.parseDouble(answer);
+            double attemptAsDouble = Double.parseDouble(attempt);
+            if (answerAsDouble == attemptAsDouble) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            //number is not a decimal number, compare strings
+            if (answer.equals(attempt)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }

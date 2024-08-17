@@ -22,7 +22,12 @@ public class Test {
             String text = questionString.split("text=")[1].split("_answer=")[0];
             String answer = questionString.split("_answer=")[1].split("_altanswers=")[0];
             ArrayList<String> altAnswers = new ArrayList<>();
-            altAnswers.addAll(List.of(questionString.split("_altanswers=")[1].split("&")));
+            if (questionString.split("_altanswers=")[1].split("text=")[0].equals("fillintheblank")) {
+                //no multiple choice.
+                altAnswers.add("nomultiplechoice");
+            } else {
+                altAnswers.addAll(List.of(questionString.split("_altanswers=")[1].split("&")));
+            }
             Question q = new Question(text, answer, altAnswers);
             questions.add(q);
         }

@@ -62,16 +62,59 @@ stompClient.onConnect = (frame) => {
 
     stompClient.subscribe("/topic/beginmatchinit", (response) => {
         console.log("match began");
+        document.getElementById("verify-connections-container").style.display = "none";
+        document.getElementById("question-facilitation-container").style.display = "block";
         stompClient.publish({
             destination: "/app/requestquestiondata",
-            body: "facilitator"
+            body: "facilitator_true"
         })
     })
 
     stompClient.subscribe("/topic/receivequestion", (response) => {
-        if (JSON.parse(response.body).body.for === "facilitator") {
-            console.log(JSON.parse(response.body).body);
+        if (JSON.parse(response.body).body["for"] === "facilitator") {
+            let data = JSON.parse(response.body).body;
+            console.log(data);
+            const qnum = document.getElementById("question-num");qnum.textContent = qnum.textContent.split("#")[0] + "#" + data["qnum"];
+            const qtext = document.getElementById("question-text");qtext.textContent = data["qbody"];
+            const qanswer = document.getElementById("question-answer");qanswer.textContent = qanswer.textContent.split(":")[0] + ": " + data["qanswer"];
+            const answerList = document.getElementById("question-alt-answers");answerList.textContent = "Answer List: ";
+            for (const option of data["qoptions"]) {
+                answerList.textContent += ("" + option + ", ");
+            }
+            answerList.textContent = answerList.textContent.slice(0, -2);
+
+
+            const compCont = document.getElementById("competitor-info");
+            while (compCont.firstChild) {
+                compCont.removeChild(compCont.lastChild);
+            }
+            for (let i = 0; i < data.competitors.length; i++) {
+                const competitor = data.competitors[i].name;
+                const competitorContainer = document.createElement("div");competitorContainer.classList.add("competitor-tile");
+                const competitorDataWrapper = document.createElement("div");competitorDataWrapper.classList.add("competitor-data-wrapper");
+                const competitorName = document.createElement("h3");competitorName.textContent = competitor; competitorName.classList.add("competitor-name");
+                competitorContainer.appendChild(competitorName);
+                const competitorScore = document.createElement("p");competitorScore.classList.add("competitor-score");
+                competitorScore.textContent = "Score: " + data.score[competitor];
+                const competitorAttempts = document.createElement("p");competitorAttempts.classList.add("competitor-attempts");
+                competitorAttempts.textContent = "Attempts: " + data.attempts[competitor];
+                const competitorHasSucceeded = document.createElement("p");competitorHasSucceeded.classList.add("competitor-attempts");
+                competitorHasSucceeded.textContent = "Has Answered Correctly: " + data.successes[competitor];
+                competitorDataWrapper.appendChild(competitorScore);
+                competitorDataWrapper.appendChild(competitorAttempts);
+                competitorDataWrapper.appendChild(competitorHasSucceeded);
+                competitorContainer.appendChild(competitorDataWrapper);
+                compCont.appendChild(competitorContainer);
+            }
         }
+    })
+
+
+    stompClient.subscribe("/topic/questionanswered", (response) => {
+        stompClient.publish({
+            destination: "/app/requestquestiondata",
+            body: "facilitator_false"
+        })
     })
 
     sendData();

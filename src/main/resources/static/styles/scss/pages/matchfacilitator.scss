@@ -35,3 +35,52 @@
     }
   }
 }
+
+#question-facilitation-container {
+  width: 90%;
+  margin-left: 5%;
+  height: 90%;
+  margin-top: 5%;
+  display: none;
+  #question-info {
+    float: left;
+    width: 50%;
+    height: 100%;
+    #question-num {
+      width: 100%;
+      text-align: center;
+    }
+    #question-text {
+      padding-left: 5%;
+      width: 95%;
+    }
+    #question-answer {
+      width: 100%;
+      text-align: center;
+    }
+    #question-alt-answers {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  #competitor-info {
+    float: right;
+    width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+    .competitor-tile {
+      width: 100%;
+      height: fit-content;
+      .competitor-name {
+        width: 100%;
+        text-align: center;
+      }
+      .competitor-data-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

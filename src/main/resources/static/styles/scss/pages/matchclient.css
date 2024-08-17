@@ -134,6 +134,10 @@ input[type=submit]:active {
   background-color: #ae289e;
 }
 
+body {
+  margin: 0;
+}
+
 #auth-container {
   display: flex;
   flex-flow: column;
@@ -185,6 +189,32 @@ input[type=submit]:active {
   width: 100%;
   height: fit-content;
   padding-top: 20vh;
+}
+
+#result-container {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+#result-container #result-text {
+  width: fit-content;
+  text-align: center;
+}
+
+.correct-container {
+  background: #007e00;
+}
+.correct-container .correct-text {
+  color: #082208;
+}
+
+.incorrect-container {
+  background: #fa0000;
+}
+.incorrect-container .incorrect-text {
+  color: #3b0808;
 }
 
 /*# sourceMappingURL=matchclient.css.map */
