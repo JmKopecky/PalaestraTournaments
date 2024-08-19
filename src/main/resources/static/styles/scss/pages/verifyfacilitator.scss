@@ -3,13 +3,13 @@
 
 body {
   position: relative;
-  height: 90vh;
+  height: 100vh;
 }
 
 
 #ip-container {
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -17,11 +17,10 @@ body {
 
 #verifykey-container {
   position: absolute;
-  top: 25%;
-  height: 50%;
-  width: 60%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  width: 90%;
+  left: 5%;
+  transform: translateY(-50%);
 
   h1 {
     position: relative;
@@ -32,7 +31,7 @@ body {
 
   form {
     position: relative;
-    width: 50%;
+    width: 40%;
     margin: auto;
 
     #verif_name_input {
@@ -49,6 +48,11 @@ body {
       margin-top:10%;
       display: flex;
       justify-content: center;
+    }
+  }
+  @media (max-aspect-ratio: 1/1) {
+    form {
+      width: 80%;
     }
   }
 }

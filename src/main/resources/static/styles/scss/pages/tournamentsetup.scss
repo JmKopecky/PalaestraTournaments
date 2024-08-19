@@ -4,25 +4,28 @@
 
 #section-container {
   position: relative;
+  height: 93vh;
 }
 
 
 #tournament-setup-title {
   width: 100%;
   height: 5vh;
-  margin-top: 0.5%;
-  margin-bottom: 1.5%;
+  padding-top: 0.5vh;
+  padding-bottom: 1.5vh;
+  text-align: center;
 }
 
 
 #competitor-container {
   width: 45%;
-  height: 80vh;
-  background-color: lighten($background, 2%);
+  height: 93%;
+  background-color: lighten($secondary, 2%);
+  float: left;
 
 
   #competitor-topbar {
-    background-color: lighten($background, 4%);
+    background-color: lighten($secondary, 4%);
     width: 100%;
     height: 8%;
     position: relative;
@@ -35,7 +38,7 @@
       width: 65%;
       max-height: 100%;
       margin:0;
-      font-size: 20px;
+      font-size: 1.35em;
     }
 
     #add-competitor-button {
@@ -73,7 +76,7 @@
     .competitor-tile {
       width: 100%;
       height: 5%;
-      background-color: lighten($background, 3%);
+      background-color: lighten($secondary, 3%);
       position: relative;
 
       label {
@@ -90,11 +93,21 @@
   #competitor-bottombar {
     height: 10%;
     width: 100%;
-    background-color: lighten($background, 4%);
+    background-color: lighten($secondary, 4%);
     position: relative;
+
+    #center-form {
+      display: flex;
+      width: 90%;
+      padding-left: 5%;
+      padding-right: 5%;
+      justify-content: space-around;
+    }
 
     h3 {
       margin: 0;
+      font-size: 20px;
+      text-align: center;
     }
   }
 }
@@ -102,13 +115,15 @@
 
 #options-container {
   width: 45%;
-  height: 80vh;
-  background-color: lighten($background, 2%);
-  position: absolute;
-  right: 0;
-  top: 0;
-
-
+  height: 93%;
+  background-color: lighten($secondary, 2%);
+  float: right;
+  h3 {
+    width: 100%;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+  }
   div {
     width: 50%;
     margin-left: auto;
@@ -132,5 +147,17 @@
       display: flex;
       justify-content: center;
     }
+  }
+}
+
+
+@media (max-aspect-ratio: 1/1) {
+  #competitor-container, #options-container {
+    width: 100%;
+    float: unset;
+  }
+
+  #options-container {
+    margin-top: 5vh;
   }
 }

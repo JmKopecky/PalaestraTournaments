@@ -70,16 +70,16 @@ body {
 }
 
 .correct-container {
-  background: mix($background, green, 2%);
+  background: mix($secondary, green, 2%);
   .correct-text {
-    color: mix($background, green, 80%);
+    color: mix($secondary, green, 80%);
   }
 }
 
 .incorrect-container {
-  background: mix($background, red, 2%);
+  background: mix($secondary, red, 2%);
   .incorrect-text {
-    color: mix($background, red, 80%);
+    color: mix($secondary, red, 80%);
   }
 }
 

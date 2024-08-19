@@ -1,5 +1,5 @@
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/palaestra-websocket'
+    brokerURL: 'ws://' + window.location.host + '/palaestra-websocket'
 });
 
 
