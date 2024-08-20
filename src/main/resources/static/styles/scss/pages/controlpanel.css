@@ -149,7 +149,7 @@ body {
   margin-bottom: 1.25%;
   padding: 0.2%;
 }
-#bracket-container .bracket-tile h3, #bracket-container .bracket-tile h2 {
+#bracket-container .bracket-tile h3, #bracket-container .bracket-tile h4 {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
   width: 100%;
@@ -174,16 +174,19 @@ body {
   height: fit-content;
   text-align: center;
   margin: 0;
+  padding-top: 1em;
 }
 #match-config-container #combatants {
   margin-left: 50%;
   transform: translateX(-50%);
   width: fit-content;
+  padding-top: 0.25em;
 }
 #match-config-container .centered {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-top: 2em;
 }
 #match-config-container #process-test {
   margin-top: 1em;
@@ -233,6 +236,16 @@ body {
 #match-config-container #begin-match-container {
   padding-top: 10vh;
   padding-bottom: 10vh;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  #bracket-container .bracket-tile {
+    width: 70%;
+  }
+  #question-container .question-text {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
 }
 
 /*# sourceMappingURL=controlpanel.css.map */

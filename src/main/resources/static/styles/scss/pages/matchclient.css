@@ -147,6 +147,7 @@ body {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 #question-container {
@@ -174,6 +175,10 @@ body {
   width: 25%;
   padding-left: 20%;
   float: right;
+}
+#question-container #question-data-container #question-answer-list input {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 #question-container #question-buttons {
   display: flex;
