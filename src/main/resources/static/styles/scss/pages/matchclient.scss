@@ -20,6 +20,7 @@ body {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 #question-container {
@@ -45,6 +46,10 @@ body {
       width: 25%;
       padding-left: 20%;
       float: right;
+      input {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
     }
   }
   #question-buttons {
@@ -70,16 +75,16 @@ body {
 }
 
 .correct-container {
-  background: mix($background, green, 2%);
+  background: mix($secondary, green, 2%);
   .correct-text {
-    color: mix($background, green, 80%);
+    color: mix($secondary, green, 80%);
   }
 }
 
 .incorrect-container {
-  background: mix($background, red, 2%);
+  background: mix($secondary, red, 2%);
   .incorrect-text {
-    color: mix($background, red, 80%);
+    color: mix($secondary, red, 80%);
   }
 }
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tournament Setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles/scss/pages/tournamentsetup.css">
     <link rel="icon" type="image/x-icon" href="/images/palaestra_logo.png">
     <script type="text/javascript" src="/js/tournament_setup_script.js"></script>
@@ -23,15 +24,18 @@
         </div>
         <div id="competitor-bottombar" style="visibility: hidden;">
             <h3>Match Type: </h3>
-            <label for="single-elim-radio" id="single-elim-label">Single Elimination</label>
-            <input id="single-elim-radio" type="radio" name="tournament-type" value="single-elim" onclick="selectTournamentType()"/>
-            <label for="ffa-radio">Free For All</label>
-            <input id="ffa-radio" type="radio" name="tournament-type" value="ffa" onclick="selectTournamentType()"/>
-            <label for="matches-count" id="matches_count_label" style="visibility: inherit;">Matches Count: </label>
-            <input id="matches-count" type="number" style="visibility: inherit;"/>
+            <div id="center-form">
+                <label for="single-elim-radio" id="single-elim-label">Single Elimination</label>
+                <input id="single-elim-radio" type="radio" name="tournament-type" value="single-elim" onclick="selectTournamentType()"/>
+                <label for="ffa-radio">Free For All</label>
+                <input id="ffa-radio" type="radio" name="tournament-type" value="ffa" onclick="selectTournamentType()"/>
+                <label for="matches-count" id="matches_count_label" style="visibility: inherit;">Matches Count: </label>
+                <input id="matches-count" type="number" style="visibility: inherit;"/>
+            </div>
         </div>
     </div>
     <div id="options-container">
+        <h3>Configuration</h3>
         <div>
             <label for="select-multiple-choice">Multiple choice enabled: </label>
             <input type="checkbox" id="select-multiple-choice">

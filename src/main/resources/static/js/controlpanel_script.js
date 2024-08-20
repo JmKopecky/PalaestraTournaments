@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
             matchContainer.classList.add("bracket-tile");
             matchContainer.classList.add("tile-ffa");
 
-            const matchDifferentiator = document.createElement("h2");
+            const matchDifferentiator = document.createElement("h3");
             matchDifferentiator.innerText = "Match " + pos;
             matchContainer.appendChild(matchDifferentiator)
 
             for (const competitor of match.competitors) {
-                const competitorName = document.createElement("h3");
+                const competitorName = document.createElement("h4");
                 competitorName.innerText = competitor.name;
                 matchContainer.appendChild(competitorName);
             }
@@ -46,7 +46,7 @@ function changeSelected(newSelected) {
     //change the identifying text in config.
     let displaySelectedCombatants = document.getElementById("combatants");
     let newCombatantText = "";
-    for (const child of selected.getElementsByTagName("h3")) {
+    for (const child of selected.getElementsByTagName("h4")) {
         newCombatantText += child.innerText + " vs ";
     }
     newCombatantText = newCombatantText.slice(0, -4);
@@ -57,9 +57,9 @@ function changeSelected(newSelected) {
 function updateServerTestData() {
     let selectedMatch = "";
     if (tournament.matchComposer.type === "ffa") {
-        selectedMatch += selected.getElementsByTagName("h2")[0].innerText + "_";
+        selectedMatch += selected.getElementsByTagName("h3")[0].innerText + "_";
     }
-    for (const child of selected.getElementsByTagName("h3")) {
+    for (const child of selected.getElementsByTagName("h4")) {
         selectedMatch += child.innerText + ",";
     }
     selectedMatch = selectedMatch.slice(0, -1);
