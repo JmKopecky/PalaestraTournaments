@@ -5,9 +5,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let pos = 1;
         for (const match of tournament.matchComposer.matches) {
+            let completedMatch = match["concluded"];
             const matchContainer = document.createElement("div");
             matchContainer.classList.add("bracket-tile");
             matchContainer.classList.add("tile-ffa");
+            if (completedMatch === true) {
+                matchContainer.classList.add("finished-match");
+            }
 
             const matchDifferentiator = document.createElement("h3");
             matchDifferentiator.innerText = "Match " + pos;

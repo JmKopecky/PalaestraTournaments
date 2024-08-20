@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.prognitio</groupId>
 	<artifactId>palaestra_tournaments</artifactId>
-	<version>1.0.0-alpha</version>
+	<version>1.1.0-alpha</version>
 	<name>palaestra_tournaments</name>
 	<description>Palaestra: Tournament Facilitation Software</description>
 	<properties>

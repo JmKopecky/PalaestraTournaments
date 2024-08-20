@@ -39,6 +39,9 @@ body {
   .selected-match {
     border: 1px solid $primary;
   }
+  .finished-match {
+    border: 1px solid green;
+  }
 }
 
 

@@ -56,6 +56,7 @@ public class MatchController {
     @SendTo("/topic/beginmatchinit")
     public ResponseEntity<?> matchInit() {
         System.out.println("Beginning match...");
+        match.started = true;
         nextQuestion(true);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -135,6 +136,7 @@ public class MatchController {
     @MessageMapping("/endmatch")
     @SendTo("/topic/forceclientsendmatch")
     public ResponseEntity<?> endMatch() {
+        match.concluded = true;
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 

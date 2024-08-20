@@ -162,6 +162,9 @@ body {
 #bracket-container .selected-match {
   border: 1px solid #fdfdfd;
 }
+#bracket-container .finished-match {
+  border: 1px solid green;
+}
 
 #match-config-container {
   width: 100%;
