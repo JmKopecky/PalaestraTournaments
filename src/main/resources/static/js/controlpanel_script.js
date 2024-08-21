@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             matchContainer.onclick = function() {
                 changeSelected(matchContainer);
+                selectedData = match;
             }
 
             const rootContainer = document.getElementById("bracket-container");
@@ -55,6 +56,50 @@ function changeSelected(newSelected) {
     }
     newCombatantText = newCombatantText.slice(0, -4);
     displaySelectedCombatants.innerText = newCombatantText;
+}
+
+
+function showScore() {
+    console.log("showing score...");
+    if (selectedData !== undefined) {
+        document.getElementById("match-score-container").style.display = "block";
+        document.getElementById("bracket-container").style.display = "none";
+        document.getElementById("match-config-container").style.display = "none";
+        let data = selectedData["matchScore"];
+        let sorted = [];
+        for (const competitor in data) {
+            sorted.push([competitor, data[competitor]]);
+        }
+        sorted.sort(function(a, b) {
+            return a[1] - b[1];
+        });
+        const container = document.getElementById("match-placement-display");
+        while (container.firstChild) {
+            container.removeChild(container.lastChild);
+        }
+        for (let i = sorted.length - 1; i >= 0; i--) {
+            const placeTile = document.createElement("div");placeTile.classList.add("place-tile");
+            const place = document.createElement("h1");place.textContent = "" + (sorted.length - i);
+            placeTile.appendChild(place);
+            const competitor = document.createElement("h3");competitor.textContent = sorted[i][0];
+            placeTile.appendChild(competitor);
+            const score = document.createElement("h3");score.textContent = sorted[i][1];
+            placeTile.appendChild(score);
+            container.appendChild(placeTile);
+        }
+    }
+}
+
+
+function hideScore() {
+    document.getElementById("match-score-container").style.display = "none";
+    document.getElementById("bracket-container").style.display = "block";
+    document.getElementById("match-config-container").style.display = "block";
+}
+
+
+function endTournament() {
+    console.log("Tournament ended.");
 }
 
 
