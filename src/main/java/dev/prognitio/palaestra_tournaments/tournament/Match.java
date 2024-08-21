@@ -9,6 +9,8 @@ public class Match {
 
     public ArrayList<Competitor> competitors;
     public Test test;
+    public boolean started = false;
+    public boolean concluded = false;
     public HashMap<String, Double> matchScore = new HashMap<>();
 
     public Match(ArrayList<Competitor> competitors) {

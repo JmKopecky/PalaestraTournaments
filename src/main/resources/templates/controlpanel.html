@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles/scss/pages/controlpanel.css">
     <link rel="icon" type="image/x-icon" href="/images/palaestra_logo.png">
-    <script th:inline="javascript">let tournament = [[${tournamentData}]];let selected;</script>
+    <script th:inline="javascript">let tournament = [[${tournamentData}]];let selected;let selectedData;</script>
     <script type="text/javascript" src="/js/controlpanel_script.js"></script>
 </head>
 <body>
@@ -24,10 +24,21 @@
     </div>
     <br>
     <div class="centered"><button id="process-test" onclick="updateServerTestData()">Process Test</button></div>
-    <div id="question-container">
+    <div id="question-container"></div>
+    <div id="match-buttons">
+        <div class="centered" id="begin-match-container"><a href="/matchfacilitator"><button>Begin Match</button></a></div>
+        <div class="centered" id="show-match-score"><button onclick="showScore()">View Match Score</button></div>
+    </div>
+    <div id="end-tournament">
+        <button onclick="endTournament()">End Tournament</button>
+    </div>
+</div>
+
+<div id="match-score-container">
+    <div id="match-placement-display">
 
     </div>
-    <div class="centered" id="begin-match-container"><a href="/matchfacilitator"><button>Begin Match</button></a></div>
+    <div id="center-button"><button onclick="hideScore()">Return</button></div>
 </div>
 
 </body>

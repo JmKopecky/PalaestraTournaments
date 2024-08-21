@@ -154,7 +154,7 @@ stompClient.onConnect = (frame) => {
         });
         for (let i = sorted.length - 1; i >= 0; i--) {
             const placeTile = document.createElement("div");placeTile.classList.add("place-tile");
-            const place = document.createElement("h1");place.textContent = "" + (sorted.length - i + 1);
+            const place = document.createElement("h1");place.textContent = "" + (sorted.length - i);
             placeTile.appendChild(place);
             const competitor = document.createElement("h3");competitor.textContent = sorted[i][0];
             placeTile.appendChild(competitor);

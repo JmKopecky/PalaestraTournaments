@@ -8,7 +8,7 @@ body {
   width: 100%;
   min-height: 50vh;
   margin-top: 3vh;
-
+  z-index: 1;
   #bracket-header {
     width: 100%;
     height: fit-content;
@@ -39,6 +39,9 @@ body {
   .selected-match {
     border: 1px solid $primary;
   }
+  .finished-match {
+    border: 1px solid green;
+  }
 }
 
 
@@ -47,6 +50,7 @@ body {
   min-height: 50vh;
   background: lighten($secondary, 3%);
   position: relative;
+  z-index: 1;
   #match-config-header {
     width: 100%;
     height: fit-content;
@@ -101,7 +105,15 @@ body {
       }
     }
   }
-  #question-container::after {
+  #match-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    position: relative;
+  }
+  #match-buttons::after {
     content:'';
     position:absolute;
     display: block;
@@ -111,9 +123,22 @@ body {
     bottom:0;
     left:20%;
   }
-  #begin-match-container {
+  #match-buttons::before {
+    content:'';
+    position:absolute;
+    display: block;
+    background-color: darken($secondary, 20%);
+    width:60%;
+    height: 3px;
+    top:0;
+    left:20%;
+  }
+  #end-tournament {
+    width: 100%;
     padding-top: 10vh;
     padding-bottom: 10vh;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -129,5 +154,32 @@ body {
       padding-top: 1em;
       padding-bottom: 1em;
     }
+  }
+}
+
+
+#match-score-container {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  .place-tile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  #center-button {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4em;
   }
 }
