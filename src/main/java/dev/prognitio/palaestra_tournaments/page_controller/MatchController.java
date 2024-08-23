@@ -137,6 +137,7 @@ public class MatchController {
     @SendTo("/topic/forceclientsendmatch")
     public ResponseEntity<?> endMatch() {
         match.concluded = true;
+        PalaestraTournamentsApplication.tournament.matchComposer.updateMatches();
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 

@@ -37,6 +37,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (tournament.matchComposer.type === "singleelim") {
         console.log("singleelim");
+        let pos = 1;
+        for (const match of tournament.matchComposer.matches) {
+
+            if (match["isPlaceholder"] === true) {
+                continue;
+            }
+            let completedMatch = match["concluded"];
+            const matchContainer = document.createElement("div");
+            matchContainer.classList.add("bracket-tile");
+            matchContainer.classList.add("tile-single-elim");
+            if (completedMatch === true) {
+                matchContainer.classList.add("finished-match");
+            }
+
+            const matchTitle = document.createElement("h3");
+            matchTitle.textContent = "Match " + pos;
+            matchContainer.appendChild(matchTitle);
+
+            for (const competitor of match.competitors) {
+                const competitorName = document.createElement("h4");
+                competitorName.innerText = competitor.name;
+                matchContainer.appendChild(competitorName);
+            }
+
+            matchContainer.onclick = function() {
+                changeSelected(matchContainer);
+                selectedData = match;
+            }
+
+            const rootContainer = document.getElementById("bracket-container");
+            rootContainer.appendChild(matchContainer);
+            pos++;
+        }
     }
 })
 
@@ -108,6 +141,7 @@ function updateServerTestData() {
     if (tournament.matchComposer.type === "ffa") {
         selectedMatch += selected.getElementsByTagName("h3")[0].innerText + "_";
     }
+
     for (const child of selected.getElementsByTagName("h4")) {
         selectedMatch += child.innerText + ",";
     }
