@@ -33,6 +33,8 @@ public class MatchController {
     @GetMapping("/matchfacilitator")
     public String matchFacilitator(Model model) {
         match = PalaestraTournamentsApplication.tournament.matchComposer.matches.get(PalaestraTournamentsApplication.currentMatchIndex);
+        competitorStatus.clear();
+        competitorPasswords.clear();
         for (Competitor competitor : match.competitors) {
             competitorStatus.put(competitor.name, "Disconnected");
             competitorPasswords.put(competitor.name, genPassword());

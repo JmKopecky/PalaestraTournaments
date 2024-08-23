@@ -98,15 +98,7 @@ public class MatchComposer {
                     for (int levelSizeCounter = 1; levelSizeCounter <= maxPower; levelSizeCounter++) {
                         int levelSize = allCompetitors.size() >> levelSizeCounter;
 
-                        //1, 2, 3, 4, 5, 6, 7, 8
-                        //9, 10, 11, 12
-                        //13, 14
-                        //15
-                        //only run if i is between totalLevelSize and totalLevelSize - levelSize; (if i is in the current level)
-                        System.out.println("I: " + i + " MaxPower: " + maxPower + " totalLevelSize: " + totalLevelSize + " levelSize: " + levelSize + " levelSizeCounter: " + levelSizeCounter);
-                        if (i+1 > totalLevelSize && i+1 <= totalLevelSize + levelSize) { //TODO
-                            System.out.println("levelSizeCounter: " + levelSizeCounter + " totalLevelSize: " + totalLevelSize + " levelSize: " + levelSize);
-                            System.out.println("I: " + i);
+                        if (i+1 > totalLevelSize && i+1 <= totalLevelSize + levelSize) {
                             // totalLevelSize + ((i+1) - previousLevelSize)/2 == matchPos-1
                             int previousLevelSize = Math.max(totalLevelSize - levelSize, 0);
                             int targetPos = (totalLevelSize + levelSize + ( (i+1) - (previousLevelSize * 2 ))/2) - 1;
