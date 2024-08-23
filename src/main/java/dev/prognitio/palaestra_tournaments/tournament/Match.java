@@ -4,6 +4,7 @@ import dev.prognitio.palaestra_tournaments.test_parsing.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Match {
 
@@ -11,6 +12,7 @@ public class Match {
     public Test test;
     public boolean started = false;
     public boolean concluded = false;
+    public boolean isPlaceholder = false;
     public HashMap<String, Double> matchScore = new HashMap<>();
 
     public Match(ArrayList<Competitor> competitors) {
@@ -32,6 +34,26 @@ public class Match {
             score = config.pointsPerSkipped;
         }
         matchScore.put(competitor, matchScore.get(competitor) + score);
+    }
+
+
+    public Competitor getWinner() {
+        Map.Entry<String, Double> greatestScore = null;
+        for (Map.Entry<String, Double> entry : matchScore.entrySet()) {
+            if (greatestScore != null) {
+                if (greatestScore.getValue() < entry.getValue()) {
+                    greatestScore = entry;
+                }
+            } else {
+                greatestScore = entry;
+            }
+        }
+        for (Competitor c : competitors) {
+            if (c.name.equals(greatestScore.getKey())) {
+                return c;
+            }
+        }
+        return null;
     }
 
 

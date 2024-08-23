@@ -3,6 +3,7 @@ package dev.prognitio.palaestra_tournaments.tournament;
 import jakarta.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MatchComposer {
 
@@ -32,7 +33,24 @@ public class MatchComposer {
         if (type.equals("ffa")) {
             return matches.get(Integer.parseInt(key.split("Match ")[1].split("_")[0]) - 1);
         } else if (type.equals("singleelim")) {
-            //TODO
+            String comp1String = key.split(",")[0];
+            String comp2String = key.split(",")[1];
+            Competitor c1 = null;
+            Competitor c2 = null;
+            for (Competitor competitor : allCompetitors) {
+                if (competitor.name.equals(comp1String)) {
+                    c1 = competitor;
+                }
+                if (competitor.name.equals(comp2String)) {
+                    c2 = competitor;
+                }
+            }
+
+            for (Match m : matches) {
+                if (m.competitors.contains(c1) && m.competitors.contains(c2)) {
+                    return m;
+                }
+            }
         }
         return null;
     }
@@ -48,6 +66,12 @@ public class MatchComposer {
             matchCompetitors.add(allCompetitors.get(i * 2 + 1));
             output.add(new Match(matchCompetitors));
         }
+        for (int i = output.size(); i < allCompetitors.size() - 1; i++) {
+            ArrayList<Competitor> matchCompetitors = new ArrayList<>();
+            Match placeholder = new Match(matchCompetitors);
+            placeholder.isPlaceholder = true;
+            output.add(placeholder);
+        }
 
         return output;
     }
@@ -62,6 +86,37 @@ public class MatchComposer {
         }
 
         return output;
+    }
+
+
+    public void updateMatches() {
+        if (type.equals("singleelim")) {
+            for (int i = 1; i < matches.size(); i += 2) {
+                if (matches.get(i-1).concluded && matches.get(i).concluded) {
+                    int maxPower = (int) (Math.log(allCompetitors.size()) / Math.log(2));
+                    int totalLevelSize = 0;
+                    for (int levelSizeCounter = 1; levelSizeCounter <= maxPower; levelSizeCounter++) {
+                        int levelSize = allCompetitors.size() >> levelSizeCounter;
+
+                        if (i+1 > totalLevelSize && i+1 <= totalLevelSize + levelSize) {
+                            // totalLevelSize + ((i+1) - previousLevelSize)/2 == matchPos-1
+                            int previousLevelSize = Math.max(totalLevelSize - levelSize, 0);
+                            int targetPos = (totalLevelSize + levelSize + ( (i+1) - (previousLevelSize * 2 ))/2) - 1;
+                            System.out.println("targetPos: " + targetPos);
+                            if (matches.get(targetPos).isPlaceholder) {
+                                ArrayList<Competitor> competitors = new ArrayList<Competitor>();
+                                competitors.add(matches.get(i-1).getWinner());
+                                competitors.add(matches.get(i).getWinner());
+                                Match toAdd = new Match(competitors);
+                                matches.set(targetPos, toAdd);
+                            }
+                        }
+                        totalLevelSize += levelSize;
+                    }
+                }
+            }
+        }
+        System.out.println("Updated Matches: " + matches);
     }
 
 
