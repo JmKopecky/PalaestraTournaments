@@ -16,6 +16,7 @@ public class Question {
 
 
     public boolean isCorrect(String attempt) {
+        System.out.println(attempt + " " + answer);
         try {
             double answerAsDouble = Double.parseDouble(answer);
             double attemptAsDouble = Double.parseDouble(attempt);
