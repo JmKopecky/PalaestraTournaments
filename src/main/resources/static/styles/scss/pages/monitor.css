@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+body {
+  font-family: "Barlow Condensed", sans;
+  background: #020202;
+  color: #fdfdfd;
+  margin: 0;
+}
+
+h1 {
+  font-family: "Montserrat", sans;
+  font-weight: 800;
+  margin: 0;
+  font-size: 2.25em;
+}
+
+h2 {
+  font-family: "Montserrat", sans;
+  font-weight: 700;
+  margin: 0;
+  font-size: 2em;
+}
+
+h3 {
+  font-family: "Montserrat", sans;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.75em;
+}
+
+h4 {
+  font-family: "Montserrat", sans;
+  font-weight: 500;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+h5 {
+  font-family: "Montserrat", sans;
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.35em;
+}
+
+h6 {
+  font-family: "Montserrat", sans;
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+p {
+  font-family: "Barlow Condensed", sans;
+  margin: 0;
+}
+
+a {
+  position: relative;
+  color: #fdfdfd;
+  font-family: "Barlow Condensed", sans;
+  text-decoration: none;
+  margin: 0;
+}
+
+button {
+  width: fit-content;
+  text-align: center;
+  padding: 1em;
+  background: #020202;
+  border: 1px solid #fdfdfd;
+  color: #fdfdfd;
+  transition: background 0.5s, color 0.5s;
+}
+
+button:hover, button:focus {
+  background: #fdfdfd;
+  color: #020202 !important;
+}
+
+::-moz-selection { /* Code for Firefox */
+  background: #fdfdfd;
+  color: #020202;
+}
+
+::selection {
+  background: #fdfdfd;
+  color: #020202;
+}
+
+label {
+  color: #fdfdfd;
+  font-family: "Barlow Condensed", sans;
+  margin: 0;
+}
+
+input[type=text],
+input[type=text]:-webkit-autofill,
+input[type=text]:-webkit-autofill:hover,
+input[type=text]:-webkit-autofill:focus,
+input[type=text]:-webkit-autofill:active,
+input[type=number],
+input[type=number]:-webkit-autofill,
+input[type=number]:-webkit-autofill:hover,
+input[type=number]:-webkit-autofill:focus,
+input[type=number]:-webkit-autofill:active {
+  background-color: #1c1c1c !important;
+  border: none !important;
+  color: #fdfdfd !important;
+  font-family: "Barlow Condensed", sans !important;
+}
+
+input[type=text]:focus, input[type=number]:focus {
+  outline-color: #fdfdfd !important;
+}
+
+input[type=submit] {
+  width: fit-content;
+  text-align: center;
+  padding: 1em;
+  background: #020202;
+  border: 1px solid #fdfdfd;
+  color: #fdfdfd;
+  transition: background 0.5s, color 0.5s;
+}
+
+input[type=submit]:hover, input[type=submit]:focus {
+  background: #fdfdfd;
+  color: #020202 !important;
+}
+
+#tournament-tile {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+#tournament-tile .competitor-result-tile {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/*# sourceMappingURL=monitor.css.map */
