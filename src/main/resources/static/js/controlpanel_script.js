@@ -132,7 +132,8 @@ function hideScore() {
 
 
 function endTournament() {
-    console.log("Tournament ended.");
+    console.log("" + window.location.origin + "/finishtournament");
+    window.location.replace(window.location.origin + "/finishtournament")
 }
 
 
