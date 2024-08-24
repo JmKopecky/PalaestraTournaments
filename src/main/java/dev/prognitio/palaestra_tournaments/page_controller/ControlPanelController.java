@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +26,18 @@ public class ControlPanelController {
     @GetMapping("/controlpanel")
     public String controlPanel(Model model) {
         model.addAttribute("tournamentData", PalaestraTournamentsApplication.tournament);
+
+        String LANIP = "";
+
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            LANIP = localhost.getHostAddress();
+        } catch (UnknownHostException ex) {
+            LANIP = "Failed to retrieve the LAN IP. Is the server connected to a network?";
+        }
+
+        model.addAttribute("localip", LANIP + ":" + PalaestraTournamentsApplication.PORT);
+
         return "controlpanel";
     }
 

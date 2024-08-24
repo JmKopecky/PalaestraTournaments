@@ -124,7 +124,7 @@ stompClient.onConnect = (frame) => {
                 const competitorAttempts = document.createElement("p");competitorAttempts.classList.add("competitor-attempts");
                 competitorAttempts.textContent = "Attempts: " + data.attempts[competitor];
                 const competitorHasSucceeded = document.createElement("p");competitorHasSucceeded.classList.add("competitor-attempts");
-                competitorHasSucceeded.textContent = "Has Answered Correctly: " + data.successes[competitor];
+                competitorHasSucceeded.textContent = "Question Completed: " + (data.successes[competitor] || data["lockquestion"]);
                 competitorDataWrapper.appendChild(competitorScore);
                 competitorDataWrapper.appendChild(competitorAttempts);
                 competitorDataWrapper.appendChild(competitorHasSucceeded);

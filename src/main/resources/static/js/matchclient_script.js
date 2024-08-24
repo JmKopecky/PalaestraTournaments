@@ -28,7 +28,17 @@ function auth() {
 
 
 function submitAnswer() {
-    let answer = document.querySelector("input[type = radio]:checked").value;
+    let answerContainer = document.getElementById("question-answer-list").querySelector("input");
+    let answer;
+    if (answerContainer.type === "radio") {
+        answer = document.querySelector("input[type = radio]:checked").value;
+    } else {
+        answer = answerContainer.value;
+    }
+
+    console.log(answer);
+    console.log(answerContainer);
+
     stompClient.publish({
         destination: "/app/questionresponse",
         body: sessionStorage.getItem("competitor") + "_" + answer
@@ -83,13 +93,21 @@ stompClient.onConnect = (frame) => {
             while (questionAnswerContainer.firstChild) {
                 questionAnswerContainer.removeChild(questionAnswerContainer.lastChild);
             }
-            for (const answerChoice of data["qoptions"]) {
-                const radioBox = document.createElement("input");radioBox.type = "radio";
-                radioBox.name = "answers"; radioBox.value = answerChoice;radioBox.id = answerChoice;
-                const label = document.createElement("label");
-                label.innerText = answerChoice; label.htmlFor = answerChoice;
-                questionAnswerContainer.appendChild(radioBox);questionAnswerContainer.appendChild(label);
-                questionAnswerContainer.appendChild(document.createElement("br"));
+            if (data["qoptions"][0] === "nomultiplechoice") {
+                const inputLabel = document.createElement("label");
+                const input = document.createElement("input");input.type = "text";
+                inputLabel.textContent = "Answer: ";
+                questionAnswerContainer.appendChild(inputLabel);
+                questionAnswerContainer.appendChild(input);
+            } else {
+                for (const answerChoice of data["qoptions"]) {
+                    const radioBox = document.createElement("input");radioBox.type = "radio";
+                    radioBox.name = "answers"; radioBox.value = answerChoice;radioBox.id = answerChoice;
+                    const label = document.createElement("label");
+                    label.innerText = answerChoice; label.htmlFor = answerChoice;
+                    questionAnswerContainer.appendChild(radioBox);questionAnswerContainer.appendChild(label);
+                    questionAnswerContainer.appendChild(document.createElement("br"));
+                }
             }
         }
     })
@@ -105,6 +123,12 @@ stompClient.onConnect = (frame) => {
                 document.getElementById("result-text").classList.remove("incorrect-text");
                 document.getElementById("result-container").classList.add("correct-container");
                 document.getElementById("result-container").classList.remove("incorrect-container");
+            } else if (data["wasskipped"] === true) {
+                document.getElementById("result-text").textContent = "Skipped.";
+                document.getElementById("result-text").classList.add("incorrect-text");
+                document.getElementById("result-text").classList.remove("correct-text");
+                document.getElementById("result-container").classList.add("incorrect-container");
+                document.getElementById("result-container").classList.remove("correct-container");
             } else {
                 document.getElementById("result-text").textContent = "Wrong.";
                 document.getElementById("result-text").classList.add("incorrect-text");
@@ -117,6 +141,15 @@ stompClient.onConnect = (frame) => {
                     document.getElementById("result-container").style.display = "none";
                 }, 3000);
             }
+        } else if (data["lockquestion"]) {
+            document.getElementById("question-container").style.display = "none";
+            document.getElementById("result-container").style.display = "flex";
+
+            document.getElementById("result-text").textContent = "Question locked by " + data["competitor"];
+            document.getElementById("result-text").classList.add("incorrect-text");
+            document.getElementById("result-text").classList.remove("correct-text");
+            document.getElementById("result-container").classList.add("incorrect-container");
+            document.getElementById("result-container").classList.remove("correct-container");
         }
     })
 

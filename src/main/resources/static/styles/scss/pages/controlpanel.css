@@ -187,6 +187,11 @@ body {
   width: fit-content;
   padding-top: 0.25em;
 }
+#match-config-container #ip-address {
+  width: 100%;
+  text-align: center;
+  padding-top: 0.5em;
+}
 #match-config-container .centered {
   width: 100%;
   display: flex;

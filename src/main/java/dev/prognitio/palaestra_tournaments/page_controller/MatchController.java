@@ -27,7 +27,8 @@ public class MatchController {
     HashMap<String, String> competitorStatus = new HashMap<>();
     HashMap<String, Integer> competitorPasswords = new HashMap<>();
     HashMap<String, Integer> competitorQuestionAttempts = new HashMap<>();
-    HashMap<String, Boolean> competitorSuccess = new HashMap<>();
+    HashMap<String, Boolean> competitorQuestionFinished = new HashMap<>();
+    boolean lockQuestion = false;
 
 
     @GetMapping("/matchfacilitator")
@@ -80,8 +81,8 @@ public class MatchController {
         toReturn.put("qnum", questionIndex + 1);
         toReturn.put("qbody", currentQuestion.questionBody);
         ArrayList<String> answers = new ArrayList<>();
-        if (currentQuestion.alternateAnswers.isEmpty()) {
-            answers.add("notmultiplechoice");
+        if (currentQuestion.alternateAnswers.getFirst().equals("nomultiplechoice")) {
+            answers.add("nomultiplechoice");
         } else {
             answers.addAll(currentQuestion.alternateAnswers);
             answers.add(currentQuestion.answer);
@@ -93,7 +94,8 @@ public class MatchController {
             toReturn.put("competitors", match.competitors);
             toReturn.put("score", match.matchScore);
             toReturn.put("attempts", competitorQuestionAttempts);
-            toReturn.put("successes", competitorSuccess);
+            toReturn.put("successes", competitorQuestionFinished);
+            toReturn.put("lockquestion", lockQuestion);
         }
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
@@ -106,22 +108,23 @@ public class MatchController {
         String answer = message.split("_")[1];
         int attemptNum = competitorQuestionAttempts.get(competitor);
         competitorQuestionAttempts.put(competitor, attemptNum + 1);
-        boolean wasCorrect = match.test.questions.get(questionIndex).isCorrect(answer);
-        competitorSuccess.put(competitor, wasCorrect);
+        boolean isCorrect = match.test.questions.get(questionIndex).isCorrect(answer);
+        competitorQuestionFinished.put(competitor, isCorrect || answer.equals("skipped"));
 
         match.notifyQuestionAttempt(
                 competitor,
-                wasCorrect,
+                isCorrect,
                 answer.equals("skipped"),
                 attemptNum,
                 PalaestraTournamentsApplication.tournament.settings);
 
         HashMap<String, Object> response = new HashMap<>();
         response.put("competitor", competitor);
-        response.put("wascorrect", wasCorrect);
-        boolean shouldEndQuestion = PalaestraTournamentsApplication.tournament.settings.questionLocking && wasCorrect;
-        response.put("continue", shouldEndQuestion);
-        response.put("successes", competitorSuccess);
+        response.put("wascorrect", isCorrect);
+        response.put("wasskipped", answer.equals("skipped"));
+        response.put("lockquestion", PalaestraTournamentsApplication.tournament.settings.questionLocking && isCorrect);
+        lockQuestion = PalaestraTournamentsApplication.tournament.settings.questionLocking && isCorrect;
+        response.put("successes", competitorQuestionFinished);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -197,10 +200,11 @@ public class MatchController {
             questionIndex++;
         }
         competitorQuestionAttempts.clear();
-        competitorSuccess.clear();
+        competitorQuestionFinished.clear();
         for (Competitor competitor : match.competitors) {
             competitorQuestionAttempts.put(competitor.name, 0);
-            competitorSuccess.put(competitor.name, false);
+            competitorQuestionFinished.put(competitor.name, false);
         }
+        lockQuestion = false;
     }
 }

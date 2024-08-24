@@ -26,12 +26,12 @@ public class Match {
     public void notifyQuestionAttempt(String competitor, boolean correct, boolean skipped, int attemptNumber, DefaultSettings config) {
         double score = 0;
         if (correct) {
-            score = config.pointsPerCorrect + (config.pointsPerCorrect * attemptNumber);
+            score = Math.max(config.pointsPerCorrect - (config.pointScale * attemptNumber), 0);
         } else {
-            score = config.pointsPerWrong;
+            score = -1 * config.pointsPerWrong;
         }
         if (skipped) {
-            score = config.pointsPerSkipped;
+            score = -1 * config.pointsPerSkipped;
         }
         matchScore.put(competitor, matchScore.get(competitor) + score);
     }
