@@ -73,7 +73,7 @@ stompClient.onConnect = (frame) => {
             if (JSON.parse(response.body).body.competitorrequest === true) {
                 stompClient.publish({
                     destination: "/app/requestquestiondata",
-                    body: sessionStorage.getItem("competitor") + "_false_false"
+                    body: sessionStorage.getItem("competitor") + "_false_false_false"
                 })
             }
         } else {
@@ -84,7 +84,11 @@ stompClient.onConnect = (frame) => {
 
 
             const qnumElem = document.getElementById("question-num");
-            qnumElem.innerText = qnumElem.innerText.split("#")[0] + "#" + data["qnum"];
+            if (data["istiebreaker"]) {
+                qnumElem.innerText = "Tiebreaker"
+            } else {
+                qnumElem.innerText = qnumElem.innerText.split("#")[0] + "#" + data["qnum"];
+            }
 
             const qtextElem = document.getElementById("question-text");
             qtextElem.innerText = data["qbody"];

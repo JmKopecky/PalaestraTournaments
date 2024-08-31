@@ -226,6 +226,9 @@ input[type=submit]:hover, input[type=submit]:focus {
   justify-content: space-evenly;
   padding-top: 1em;
 }
+#question-facilitation-container #button-container #tiebreaker-button {
+  display: none;
+}
 
 @media (max-aspect-ratio: 1/1) {
   #question-info, #competitor-info {

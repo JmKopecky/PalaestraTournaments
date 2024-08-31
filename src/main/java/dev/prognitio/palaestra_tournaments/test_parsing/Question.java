@@ -7,6 +7,7 @@ public class Question {
     public String questionBody;
     public String answer;
     public ArrayList<String> alternateAnswers;
+    public boolean isTiebreaker = false;
 
     public Question(String questionBody, String answer, ArrayList<String> alternateAnswers) {
         this.questionBody = questionBody;

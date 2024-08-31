@@ -47,7 +47,16 @@ function nextQuestion() {
     console.log("Proceeding to next question.");
     stompClient.publish({
         destination: "/app/requestquestiondata",
-        body: "facilitator_true_true"
+        body: "facilitator_true_true_false"
+    });
+}
+
+
+function tieBreaker() {
+    console.log("Proceeding to next question.");
+    stompClient.publish({
+        destination: "/app/requestquestiondata",
+        body: "facilitator_true_true_true"
     });
 }
 
@@ -91,7 +100,7 @@ stompClient.onConnect = (frame) => {
         document.getElementById("question-facilitation-container").style.display = "block";
         stompClient.publish({
             destination: "/app/requestquestiondata",
-            body: "facilitator_true_false"
+            body: "facilitator_true_false_false"
         })
     })
 
@@ -99,7 +108,13 @@ stompClient.onConnect = (frame) => {
         if (JSON.parse(response.body).body["for"] === "facilitator") {
             let data = JSON.parse(response.body).body;
             console.log(data);
-            const qnum = document.getElementById("question-num");qnum.textContent = qnum.textContent.split("#")[0] + "#" + data["qnum"];
+            let isTiebreaker = data["istiebreaker"];
+            const qnum = document.getElementById("question-num");
+            if (isTiebreaker) {
+                qnum.textContent = "Tiebreaker";
+            } else {
+                qnum.textContent = "Question " + "#" + data["qnum"];
+            }
             const qtext = document.getElementById("question-text");qtext.textContent = data["qbody"];
             const qanswer = document.getElementById("question-answer");qanswer.textContent = qanswer.textContent.split(":")[0] + ": " + data["qanswer"];
             const answerList = document.getElementById("question-alt-answers");answerList.textContent = "Answer List: ";
@@ -131,13 +146,34 @@ stompClient.onConnect = (frame) => {
                 competitorContainer.appendChild(competitorDataWrapper);
                 compCont.appendChild(competitorContainer);
             }
+            //if a tie exists between the top two scores, show tiebreaker.
+            let shouldAllowTiebreaker = false;
+            let topScore = -99999;
+            for (const competitor in data["score"]) {
+                if (topScore === data["score"][competitor] && topScore > 0 && data["islastquestion"]) {
+                    shouldAllowTiebreaker = true;
+                    break;
+                } else if (topScore < data["score"][competitor]) {
+                    topScore = data["score"][competitor];
+                }
+            }
+            if (shouldAllowTiebreaker) {
+                document.getElementById("tiebreaker-button").style.display = "block";
+            } else {
+                document.getElementById("tiebreaker-button").style.display = "none";
+            }
+            if (data["islastquestion"]) {
+                document.getElementById("next-question-button").style.display = "none";
+            } else {
+                document.getElementById("next-question-button").style.display = "block";
+            }
         }
     })
 
     stompClient.subscribe("/topic/questionanswered", (response) => {
         stompClient.publish({
             destination: "/app/requestquestiondata",
-            body: "facilitator_false_false"
+            body: "facilitator_false_false_false"
         })
     })
 

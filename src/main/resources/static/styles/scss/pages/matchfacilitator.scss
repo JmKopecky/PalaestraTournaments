@@ -96,6 +96,9 @@
     display: flex;
     justify-content: space-evenly;
     padding-top: 1em;
+    #tiebreaker-button {
+      display: none;
+    }
   }
 }
 @media (max-aspect-ratio: 1/1) {
