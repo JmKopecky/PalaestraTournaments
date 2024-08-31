@@ -60,7 +60,7 @@ public class MatchController {
     public ResponseEntity<?> matchInit() {
         System.out.println("Beginning match...");
         match.started = true;
-        nextQuestion(true);
+        nextQuestion(true, false);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -71,15 +71,18 @@ public class MatchController {
         String forVal = message.split("_")[0];
         boolean shouldCompetitorsRequestData = Boolean.parseBoolean(message.split("_")[1]);
         boolean nextQuestion = Boolean.parseBoolean(message.split("_")[2]);
+        boolean tieBreaker = Boolean.parseBoolean(message.split("_")[3]);
         if (nextQuestion) {
-            nextQuestion(false);
+            nextQuestion(false, tieBreaker);
         }
+        boolean isLastMainQuestion = match.test.questions.size() - 1 == questionIndex || match.test.questions.get(questionIndex + 1).isTiebreaker;
         HashMap<String, Object> toReturn = new HashMap<>();
         Question currentQuestion = match.test.questions.get(questionIndex);
         toReturn.put("for", forVal);
         toReturn.put("competitorrequest", shouldCompetitorsRequestData);
         toReturn.put("qnum", questionIndex + 1);
         toReturn.put("qbody", currentQuestion.questionBody);
+        toReturn.put("istiebreaker", currentQuestion.isTiebreaker);
         ArrayList<String> answers = new ArrayList<>();
         if (currentQuestion.alternateAnswers.getFirst().equals("nomultiplechoice")) {
             answers.add("nomultiplechoice");
@@ -96,6 +99,7 @@ public class MatchController {
             toReturn.put("attempts", competitorQuestionAttempts);
             toReturn.put("successes", competitorQuestionFinished);
             toReturn.put("lockquestion", lockQuestion);
+            toReturn.put("islastquestion", isLastMainQuestion);
         }
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
@@ -190,14 +194,24 @@ public class MatchController {
     }
 
 
-    public void nextQuestion(boolean matchInit) {
+    public void nextQuestion(boolean matchInit, boolean wantsTiebreaker) {
         if (matchInit) {
             questionIndex = 0;
         } else {
             if (questionIndex + 1 >= match.test.questions.size()) {
                 return;
             }
-            questionIndex++;
+            if (match.test.questions.get(questionIndex + 1).isTiebreaker) {
+                if (wantsTiebreaker) {
+                    questionIndex++;
+                } else if (questionIndex + 2 < match.test.questions.size()) {
+                    questionIndex += 2;
+                } else {
+                    return;
+                }
+            } else {
+                questionIndex++;
+            }
         }
         competitorQuestionAttempts.clear();
         competitorQuestionFinished.clear();

@@ -181,7 +181,12 @@ function populateQuestionTiles(data) {
         questionTile.classList.add("question-tile");
 
         const bodyText = document.createElement("p");
-        bodyText.innerText = question.questionBody;
+        if (question.isTiebreaker) {
+            bodyText.innerText = "TIEBREAKER: " + question.questionBody;
+        } else {
+            bodyText.innerText = question.questionBody;
+        }
+
         bodyText.classList.add("question-text");
         questionTile.appendChild(bodyText);
 

@@ -19,7 +19,8 @@ public class Test {
 
         questions.clear();
         for (String questionString : questionStrings) {
-            String text = questionString.split("text=")[1].split("_answer=")[0];
+            String text = questionString.split("text=")[1].split("_tiebreaker=")[0];
+            boolean tieBreaker = Boolean.parseBoolean(questionString.split("tiebreaker=")[1].split("_answer=")[0]);
             String answer = questionString.split("_answer=")[1].split("_altanswers=")[0];
             ArrayList<String> altAnswers = new ArrayList<>();
             if (questionString.split("_altanswers=")[1].split("text=")[0].equals("fillintheblank")) {
@@ -29,6 +30,7 @@ public class Test {
                 altAnswers.addAll(List.of(questionString.split("_altanswers=")[1].split("&")));
             }
             Question q = new Question(text, answer, altAnswers);
+            q.isTiebreaker = tieBreaker;
             questions.add(q);
         }
     }
