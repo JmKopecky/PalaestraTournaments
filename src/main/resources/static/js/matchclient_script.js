@@ -16,13 +16,15 @@ function auth() {
         return response.text().then((data) => {
             if (!data.includes("Fail")) {
                 sessionStorage.setItem("competitor", data.substring(data.indexOf("_") + 1, data.lastIndexOf("_")));
-                sessionStorage.setItem("password", data.substring(data.lastIndexOf("_")));
+                sessionStorage.setItem("password", data.substring(data.lastIndexOf("_") + 1));
                 informFacilitatorConnected();
                 document.getElementById("auth-container").style.display = "none";
                 document.getElementById("waiting-container").style.display = "flex";
 
                 document.getElementById("competitor-password-input").classList.remove("auth-fail");
                 document.getElementById("competitor-name-input").classList.remove("auth-fail");
+
+                subscribeQuestions();
             } else {
                 if (data.includes("pw")) {
                     document.getElementById("competitor-password-input").classList.add("auth-fail");
@@ -76,6 +78,37 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
+
+
+};
+
+
+stompClient.onWebSocketError = (error) => {
+    console.error('Error with websocket', error);
+};
+
+
+stompClient.onStompError = (frame) => {
+    console.error('Broker reported error: ' + frame.headers['message']);
+    console.error('Additional details: ' + frame.body);
+};
+
+
+function informFacilitatorConnected() {
+    stompClient.publish({
+        destination: "/app/verifyfacilitatorconnection",
+        body: "Client connected: " + sessionStorage.getItem("competitor")
+    });
+}
+
+
+function subscribeQuestions() {
+
+    if (sessionStorage.getItem("password") === null || sessionStorage.getItem("password").length !== 6) {
+        console.log("UNAUTHORIZED CONNECTION AS CLIENT.");
+        console.log(sessionStorage.getItem("password"));
+        return;
+    }
 
     stompClient.subscribe("/topic/beginmatchinit", (response) => {
         console.log("match began");
@@ -197,25 +230,6 @@ stompClient.onConnect = (frame) => {
     stompClient.subscribe("/topic/forceclientsendmatch", (response) => {
         stompClient.deactivate();
         window.location.replace(window.location.origin);
-    });
-};
-
-
-stompClient.onWebSocketError = (error) => {
-    console.error('Error with websocket', error);
-};
-
-
-stompClient.onStompError = (frame) => {
-    console.error('Broker reported error: ' + frame.headers['message']);
-    console.error('Additional details: ' + frame.body);
-};
-
-
-function informFacilitatorConnected() {
-    stompClient.publish({
-        destination: "/app/verifyfacilitatorconnection",
-        body: "Client connected: " + sessionStorage.getItem("competitor")
     });
 }
 
