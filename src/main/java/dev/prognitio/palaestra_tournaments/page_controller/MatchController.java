@@ -176,10 +176,10 @@ public class MatchController {
                 competitorStatus.put(assertedCompetitor, "Connected");
                 return new ResponseEntity<>("Success_" + assertedCompetitor + "_" + assertedPassword, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("Fail", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>("Fail_pw", HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity<>("Competitor not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Fail_name", HttpStatus.OK);
         }
     }
 

@@ -14,11 +14,24 @@ function auth() {
         }
     }).then((response) => {
         return response.text().then((data) => {
-            sessionStorage.setItem("competitor", data.substring(data.indexOf("_") + 1, data.lastIndexOf("_")));
-            sessionStorage.setItem("password", data.substring(data.lastIndexOf("_")));
-            informFacilitatorConnected();
-            document.getElementById("auth-container").style.display = "none";
-            document.getElementById("waiting-container").style.display = "flex";
+            if (!data.includes("Fail")) {
+                sessionStorage.setItem("competitor", data.substring(data.indexOf("_") + 1, data.lastIndexOf("_")));
+                sessionStorage.setItem("password", data.substring(data.lastIndexOf("_")));
+                informFacilitatorConnected();
+                document.getElementById("auth-container").style.display = "none";
+                document.getElementById("waiting-container").style.display = "flex";
+
+                document.getElementById("competitor-password-input").classList.remove("auth-fail");
+                document.getElementById("competitor-name-input").classList.remove("auth-fail");
+            } else {
+                if (data.includes("pw")) {
+                    document.getElementById("competitor-password-input").classList.add("auth-fail");
+                    document.getElementById("competitor-name-input").classList.remove("auth-fail");
+                } else {
+                    document.getElementById("competitor-name-input").classList.add("auth-fail");
+                    document.getElementById("competitor-password-input").classList.remove("auth-fail");
+                }
+            }
             return data;
         }).catch((err) => {
             console.log(err);

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +23,20 @@ public class MonitorController {
 
 
     @GetMapping("/monitor")
-    public String verifyFacilitator(Model model) {
+    public String monitor(Model model) {
         //model.addAttribute();
+
+        String LANIP = "";
+
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            LANIP = localhost.getHostAddress();
+        } catch (UnknownHostException ex) {
+            LANIP = "Failed to retrieve the LAN IP. Is the server connected to a network?";
+        }
+
+        model.addAttribute("localip", LANIP + ":" + PalaestraTournamentsApplication.PORT);
+
         return "monitor";
     }
 

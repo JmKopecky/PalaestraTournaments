@@ -11,6 +11,10 @@ body {
   align-items: center;
   height: 40vh;
   margin-top: 30vh;
+
+  .auth-fail {
+    border: 1px solid red !important;
+  }
 }
 
 #waiting-container {

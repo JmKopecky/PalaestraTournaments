@@ -127,9 +127,20 @@ input[type=submit]:hover, input[type=submit]:focus {
   color: #020202 !important;
 }
 
+#ip-display {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#ip-display h1 {
+  text-align: center;
+}
+
 #tournament-tile {
   width: 100%;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-flow: column;
   justify-content: center;
